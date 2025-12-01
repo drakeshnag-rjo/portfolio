@@ -30,7 +30,7 @@ class CosmicBackground {
             this.mouse.y = e.clientY;
         });
 
-        this.createStars(250);
+        this.createStars(400); // Increased from 250
         this.createGalaxies(3);
         this.createWormholes(2);
         this.createBlackholes(2);
@@ -48,12 +48,12 @@ class CosmicBackground {
             this.stars.push({
                 x: Math.random() * this.canvas.width,
                 y: Math.random() * this.canvas.height,
-                radius: Math.random() * 2 + 0.5,
-                opacity: Math.random(),
+                radius: Math.random() * 2.5 + 1.0, // Larger stars (1.0 - 3.5px)
+                opacity: Math.random() * 0.5 + 0.5, // Brighter (0.5 - 1.0)
                 twinkleSpeed: Math.random() * 0.02 + 0.01,
-                vx: (Math.random() - 0.5) * 0.5, // Base velocity
+                vx: (Math.random() - 0.5) * 0.5,
                 vy: (Math.random() - 0.5) * 0.5,
-                friction: 0.95 // Friction for smooth movement
+                friction: 0.95
             });
         }
     }
