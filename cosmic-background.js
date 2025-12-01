@@ -1,4 +1,4 @@
-// Cosmic Background with Interactive Effects - Enhanced Physics
+// Cosmic Background with Interactive Effects - Enhanced Physics & Deep Space Colors
 class CosmicBackground {
     constructor() {
         this.canvas = document.createElement('canvas');
@@ -67,7 +67,8 @@ class CosmicBackground {
                 rotation: Math.random() * Math.PI * 2,
                 rotationSpeed: (Math.random() - 0.5) * 0.002,
                 arms: 3 + Math.floor(Math.random() * 3),
-                color: ['#6366f1', '#ec4899', '#14b8a6'][Math.floor(Math.random() * 3)],
+                // Updated colors: Electric Blue, Cosmic Violet, Warp Cyan
+                color: ['#3b82f6', '#8b5cf6', '#06b6d4'][Math.floor(Math.random() * 3)],
                 vx: 0,
                 vy: 0,
                 friction: 0.92
@@ -216,7 +217,8 @@ class CosmicBackground {
                     this.ctx.beginPath();
                     this.ctx.arc(0, 0, ringRadius, 0, Math.PI * 2);
                     const opacity = (1 - i / 8) * 0.4;
-                    this.ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
+                    // Updated to Electric Blue
+                    this.ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
                     this.ctx.lineWidth = 2;
                     this.ctx.stroke();
                 }
@@ -225,8 +227,8 @@ class CosmicBackground {
             // Wormhole center
             const centerGradient = this.ctx.createRadialGradient(0, 0, 0, 0, 0, wormhole.radius * 0.5);
             centerGradient.addColorStop(0, '#000000');
-            centerGradient.addColorStop(0.5, '#6366f1AA');
-            centerGradient.addColorStop(1, '#6366f100');
+            centerGradient.addColorStop(0.5, '#3b82f6AA'); // Electric Blue
+            centerGradient.addColorStop(1, '#3b82f600');
             this.ctx.fillStyle = centerGradient;
             this.ctx.beginPath();
             this.ctx.arc(0, 0, wormhole.radius * 0.5, 0, Math.PI * 2);
@@ -241,14 +243,14 @@ class CosmicBackground {
             blackhole.rotation += blackhole.rotationSpeed;
             this.applyPhysics(blackhole, 1.5);
 
-            // Event horizon glow
+            // Event horizon glow - Updated to Cosmic Violet
             const horizonGradient = this.ctx.createRadialGradient(
                 blackhole.x, blackhole.y, blackhole.radius,
                 blackhole.x, blackhole.y, blackhole.eventHorizon
             );
-            horizonGradient.addColorStop(0, '#ec489980');
-            horizonGradient.addColorStop(0.5, '#ec489940');
-            horizonGradient.addColorStop(1, '#ec489900');
+            horizonGradient.addColorStop(0, '#8b5cf680'); // Violet
+            horizonGradient.addColorStop(0.5, '#8b5cf640');
+            horizonGradient.addColorStop(1, '#8b5cf600');
             this.ctx.fillStyle = horizonGradient;
             this.ctx.beginPath();
             this.ctx.arc(blackhole.x, blackhole.y, blackhole.eventHorizon, 0, Math.PI * 2);
@@ -262,7 +264,8 @@ class CosmicBackground {
             for (let i = 0; i < 3; i++) {
                 this.ctx.beginPath();
                 this.ctx.ellipse(0, 0, blackhole.radius * 1.5, blackhole.radius * 0.3, 0, 0, Math.PI * 2);
-                this.ctx.strokeStyle = `rgba(236, 72, 153, ${0.3 - i * 0.1})`;
+                // Updated to Violet
+                this.ctx.strokeStyle = `rgba(139, 92, 246, ${0.3 - i * 0.1})`;
                 this.ctx.lineWidth = 2;
                 this.ctx.stroke();
             }
