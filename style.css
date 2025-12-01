@@ -75,7 +75,7 @@ body {
     position: relative;
 }
 
-/* Wormhole Background Effect */
+/* Wormhole Background Effect - INTENSIFIED */
 body::before {
     content: '';
     position: fixed;
@@ -84,12 +84,13 @@ body::before {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background:
+    background: 
         radial-gradient(ellipse at 50% 50%, transparent 0%, var(--bg-primary) 70%),
-        radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.03) 0%, transparent 60%),
-        radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.02) 0%, transparent 70%);
-    animation: wormholeRotate 40s linear infinite;
+        radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.1) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+    animation: wormholeRotate 30s linear infinite;
 }
 
 body::after {
@@ -101,42 +102,57 @@ body::after {
     height: 200%;
     transform: translate(-50%, -50%);
     z-index: -1;
-    background-image:
-        repeating-radial-gradient(circle at 50% 50%,
+    background-image: 
+        repeating-radial-gradient(
+            circle at 50% 50%,
             transparent 0px,
-            rgba(99, 102, 241, 0.05) 2px,
+            rgba(99, 102, 241, 0.25) 3px,
+            transparent 6px,
+            transparent 30px
+        ),
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            transparent 0px,
+            rgba(236, 72, 153, 0.2) 3px,
+            transparent 6px,
+            transparent 45px
+        ),
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            transparent 0px,
+            rgba(20, 184, 166, 0.18) 2px,
+            transparent 5px,
+            transparent 60px
+        ),
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            transparent 0px,
+            rgba(99, 102, 241, 0.15) 2px,
             transparent 4px,
-            transparent 40px),
-        repeating-radial-gradient(circle at 50% 50%,
-            transparent 0px,
-            rgba(236, 72, 153, 0.04) 2px,
-            transparent 4px,
-            transparent 60px),
-        repeating-radial-gradient(circle at 50% 50%,
-            transparent 0px,
-            rgba(20, 184, 166, 0.03) 1px,
-            transparent 3px,
-            transparent 80px);
-    animation: wormholePulse 20s ease-in-out infinite, wormholeRotate 60s linear infinite reverse;
+            transparent 80px
+        );
+    animation: wormholePulse 15s ease-in-out infinite, wormholeRotate 45s linear infinite reverse;
 }
 
 @keyframes wormholeRotate {
     from {
         transform: translate(-50%, -50%) rotate(0deg);
     }
-
     to {
         transform: translate(-50%, -50%) rotate(360deg);
     }
 }
 
 @keyframes wormholePulse {
-
-    0%,
-    100% {
-        opacity: 0.6;
+    0%, 100% {
+        opacity: 0.8;
         transform: translate(-50%, -50%) scale(1) rotate(0deg);
     }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.15) rotate(180deg);
+    }
+}
 
     50% {
         opacity: 1;
