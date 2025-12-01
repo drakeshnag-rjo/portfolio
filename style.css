@@ -1,3 +1,33 @@
+:root {
+    /* Color Palette - Deep Space Voyager */
+    --primary-color: #3b82f6;      /* Electric Blue */
+    --primary-dark: #2563eb;       /* Deep Blue */
+    --primary-light: #60a5fa;      /* Starlight Blue */
+    --secondary-color: #8b5cf6;    /* Cosmic Violet */
+    --accent-color: #06b6d4;       /* Warp Cyan */
+    --success-color: #10b981;
+
+    /* Neutral Colors */
+    --bg-primary: #050510;         /* Deep Void */
+    --bg-secondary: #0f172a;       /* Dark Nebula */
+    --bg-tertiary: #1e293b;
+    --bg-card: rgba(15, 23, 42, 0.8);
+    --bg-card-hover: rgba(30, 41, 59, 0.9);
+
+    /* Text Colors */
+    --text-primary: #f1f5f9;       /* Starlight White */
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);   /* Blue -> Violet */
+    --gradient-secondary: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); /* Cyan -> Blue */
+    --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);    /* Violet -> Cyan */
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
     --spacing-lg: 4rem;
     --spacing-xl: 6rem;
 
@@ -17,118 +47,116 @@
     --transition-fast: 0.2s ease;
     --transition-base: 0.3s ease;
     --transition-slow: 0.5s ease;
-    }
+}
 
-    /* ===================================
+/* ===================================
    Reset & Base Styles
    =================================== */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    /* background-color: var(--bg-primary); */
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Wormhole Background Effect - INTENSIFIED */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: 
+        radial-gradient(ellipse at 50% 50%, transparent 0%, var(--bg-primary) 70%),
+        radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.1) 0%, transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+    animation: wormholeRotate 30s linear infinite;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    background-image: 
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            transparent 0px,
+            rgba(99, 102, 241, 0.25) 3px,
+            transparent 6px,
+            transparent 30px
+        ),
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            transparent 0px,
+            rgba(236, 72, 153, 0.2) 3px,
+            transparent 6px,
+            transparent 45px
+        ),
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            transparent 0px,
+            rgba(20, 184, 166, 0.18) 2px,
+            transparent 5px,
+            transparent 60px
+        ),
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            transparent 0px,
+            rgba(99, 102, 241, 0.15) 2px,
+            transparent 4px,
+            transparent 80px
+        );
+    animation: wormholePulse 15s ease-in-out infinite, wormholeRotate 45s linear infinite reverse;
+}
+
+@keyframes wormholeRotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
     }
-
-    html {
-        scroll-behavior: smooth;
-        font-size: 16px;
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
     }
+}
 
-    body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        /* background-color: var(--bg-primary); */
-        color: var(--text-primary);
-        line-height: 1.6;
-        overflow-x: hidden;
-        position: relative;
+@keyframes wormholePulse {
+    0%, 100% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
     }
-
-    /* Wormhole Background Effect - INTENSIFIED */
-    body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -2;
-        background:
-            radial-gradient(ellipse at 50% 50%, transparent 0%, var(--bg-primary) 70%),
-            radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-            radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.12) 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.1) 0%, transparent 60%),
-            radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
-        animation: wormholeRotate 30s linear infinite;
-    }
-
-    body::after {
-        content: '';
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        width: 200%;
-        height: 200%;
-        transform: translate(-50%, -50%);
-        z-index: -2;
-        background-image:
-            repeating-radial-gradient(circle at 50% 50%,
-                transparent 0px,
-                rgba(99, 102, 241, 0.25) 3px,
-                transparent 6px,
-                transparent 30px),
-            repeating-radial-gradient(circle at 50% 50%,
-                transparent 0px,
-                rgba(236, 72, 153, 0.2) 3px,
-                transparent 6px,
-                transparent 45px),
-            repeating-radial-gradient(circle at 50% 50%,
-                transparent 0px,
-                rgba(20, 184, 166, 0.18) 2px,
-                transparent 5px,
-                transparent 60px),
-            repeating-radial-gradient(circle at 50% 50%,
-                transparent 0px,
-                rgba(99, 102, 241, 0.15) 2px,
-                transparent 4px,
-                transparent 80px);
-        animation: wormholePulse 15s ease-in-out infinite, wormholeRotate 45s linear infinite reverse;
-    }
-
-    @keyframes wormholeRotate {
-        from {
-            transform: translate(-50%, -50%) rotate(0deg);
-        }
-
-        to {
-            transform: translate(-50%, -50%) rotate(360deg);
-        }
-    }
-
-    @keyframes wormholePulse {
-
-        0%,
-        100% {
-            opacity: 0.8;
-            transform: translate(-50%, -50%) scale(1) rotate(0deg);
-        }
-
-        50% {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1.15) rotate(180deg);
-        }
-    }
-
     50% {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1.1) rotate(180deg);
+        transform: translate(-50%, -50%) scale(1.15) rotate(180deg);
     }
-    }
+}
 
-    ::selection {
-        background-color: var(--primary-color);
-        color: var(--text-primary);
-    }
+::selection {
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+}
 
-    /* ===================================
+/* ===================================
    Typography
    =================================== */
     h1,
