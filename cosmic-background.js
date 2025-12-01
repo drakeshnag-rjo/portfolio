@@ -7,6 +7,7 @@ class CosmicBackground {
         this.galaxies = [];
         this.wormholes = [];
         this.blackholes = [];
+        this.comets = [];
         this.mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         this.init();
     }
@@ -30,10 +31,11 @@ class CosmicBackground {
             this.mouse.y = e.clientY;
         });
 
-        this.createStars(400); // Increased from 250
+        this.createStars(400);
         this.createGalaxies(3);
         this.createWormholes(2);
         this.createBlackholes(2);
+        this.createComets(3);
 
         this.animate();
     }
@@ -48,12 +50,27 @@ class CosmicBackground {
             this.stars.push({
                 x: Math.random() * this.canvas.width,
                 y: Math.random() * this.canvas.height,
-                radius: Math.random() * 2.5 + 1.0, // Larger stars (1.0 - 3.5px)
-                opacity: Math.random() * 0.5 + 0.5, // Brighter (0.5 - 1.0)
+                radius: Math.random() * 2.5 + 1.0,
+                opacity: Math.random() * 0.5 + 0.5,
                 twinkleSpeed: Math.random() * 0.02 + 0.01,
                 vx: (Math.random() - 0.5) * 0.5,
                 vy: (Math.random() - 0.5) * 0.5,
                 friction: 0.95
+            });
+        }
+    }
+
+    createComets(count) {
+        this.comets = [];
+        for (let i = 0; i < count; i++) {
+            this.comets.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                radius: Math.random() * 3 + 2,
+                speed: Math.random() * 2 + 3,
+                angle: Math.random() * Math.PI * 2,
+                tailLength: 20 + Math.random() * 30,
+                color: '#ffffff'
             });
         }
     }
@@ -67,7 +84,6 @@ class CosmicBackground {
                 rotation: Math.random() * Math.PI * 2,
                 rotationSpeed: (Math.random() - 0.5) * 0.002,
                 arms: 3 + Math.floor(Math.random() * 3),
-                // Updated colors: Electric Blue, Cosmic Violet, Warp Cyan
                 color: ['#3b82f6', '#8b5cf6', '#06b6d4'][Math.floor(Math.random() * 3)],
                 vx: 0,
                 vy: 0,
@@ -113,8 +129,6 @@ class CosmicBackground {
         const dy = this.mouse.y - obj.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        // Stronger pull, but capped to prevent flying off too fast
-        // Pull strength increases as you get closer
         const force = Math.min(1000 / (distance * distance + 100), 0.5) * pullFactor;
 
         const angle = Math.atan2(dy, dx);
@@ -122,15 +136,12 @@ class CosmicBackground {
         obj.vx += Math.cos(angle) * force;
         obj.vy += Math.sin(angle) * force;
 
-        // Apply velocity
         obj.x += obj.vx;
         obj.y += obj.vy;
 
-        // Apply friction (damping)
         obj.vx *= obj.friction || 0.95;
         obj.vy *= obj.friction || 0.95;
 
-        // Screen wrapping
         if (obj.x < -100) obj.x = this.canvas.width + 100;
         if (obj.x > this.canvas.width + 100) obj.x = -100;
         if (obj.y < -100) obj.y = this.canvas.height + 100;
@@ -139,15 +150,11 @@ class CosmicBackground {
 
     drawStars() {
         this.stars.forEach(star => {
-            // Much stronger pull for light stars
             this.applyPhysics(star, 5.0);
-
-            // Twinkle effect
             star.opacity += star.twinkleSpeed;
             if (star.opacity > 1 || star.opacity < 0.2) {
                 star.twinkleSpeed *= -1;
             }
-
             this.ctx.beginPath();
             this.ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
             this.ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
@@ -155,16 +162,49 @@ class CosmicBackground {
         });
     }
 
+    drawComets() {
+        this.comets.forEach(comet => {
+            comet.x += Math.cos(comet.angle) * comet.speed;
+            comet.y += Math.sin(comet.angle) * comet.speed;
+
+            if (comet.x < -100) comet.x = this.canvas.width + 100;
+            if (comet.x > this.canvas.width + 100) comet.x = -100;
+            if (comet.y < -100) comet.y = this.canvas.height + 100;
+            if (comet.y > this.canvas.height + 100) comet.y = -100;
+
+            this.ctx.beginPath();
+            this.ctx.arc(comet.x, comet.y, comet.radius, 0, Math.PI * 2);
+            this.ctx.fillStyle = comet.color;
+            this.ctx.fill();
+
+            const tailGradient = this.ctx.createLinearGradient(
+                comet.x, comet.y,
+                comet.x - Math.cos(comet.angle) * comet.tailLength,
+                comet.y - Math.sin(comet.angle) * comet.tailLength
+            );
+            tailGradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+            tailGradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+            this.ctx.beginPath();
+            this.ctx.moveTo(comet.x, comet.y);
+            this.ctx.lineTo(
+                comet.x - Math.cos(comet.angle) * comet.tailLength,
+                comet.y - Math.sin(comet.angle) * comet.tailLength
+            );
+            this.ctx.strokeStyle = tailGradient;
+            this.ctx.lineWidth = comet.radius * 2;
+            this.ctx.lineCap = 'round';
+            this.ctx.stroke();
+        });
+    }
+
     drawGalaxies() {
         this.galaxies.forEach(galaxy => {
             galaxy.rotation += galaxy.rotationSpeed;
-            this.applyPhysics(galaxy, 2.0); // Heavy objects move slower
-
+            this.applyPhysics(galaxy, 2.0);
             this.ctx.save();
             this.ctx.translate(galaxy.x, galaxy.y);
             this.ctx.rotate(galaxy.rotation);
-
-            // Draw spiral arms
             for (let arm = 0; arm < galaxy.arms; arm++) {
                 const armAngle = (Math.PI * 2 / galaxy.arms) * arm;
                 this.ctx.beginPath();
@@ -173,7 +213,6 @@ class CosmicBackground {
                     const radius = (i / 100) * galaxy.radius;
                     const x = Math.cos(angle) * radius;
                     const y = Math.sin(angle) * radius;
-
                     if (i === 0) {
                         this.ctx.moveTo(x, y);
                     } else {
@@ -184,8 +223,6 @@ class CosmicBackground {
                 this.ctx.lineWidth = 3;
                 this.ctx.stroke();
             }
-
-            // Galaxy core
             const coreGradient = this.ctx.createRadialGradient(0, 0, 0, 0, 0, galaxy.radius * 0.3);
             coreGradient.addColorStop(0, galaxy.color + 'AA');
             coreGradient.addColorStop(1, galaxy.color + '00');
@@ -193,7 +230,6 @@ class CosmicBackground {
             this.ctx.beginPath();
             this.ctx.arc(0, 0, galaxy.radius * 0.3, 0, Math.PI * 2);
             this.ctx.fill();
-
             this.ctx.restore();
         });
     }
@@ -203,37 +239,29 @@ class CosmicBackground {
             wormhole.rotation += wormhole.rotationSpeed;
             wormhole.pulsePhase += 0.05;
             const pulse = Math.sin(wormhole.pulsePhase) * 0.2 + 1;
-
             this.applyPhysics(wormhole, 2.5);
-
             this.ctx.save();
             this.ctx.translate(wormhole.x, wormhole.y);
             this.ctx.rotate(wormhole.rotation);
-
-            // Draw concentric rings
             for (let i = 0; i < 8; i++) {
                 const ringRadius = (wormhole.radius * pulse) - (i * 8);
                 if (ringRadius > 0) {
                     this.ctx.beginPath();
                     this.ctx.arc(0, 0, ringRadius, 0, Math.PI * 2);
                     const opacity = (1 - i / 8) * 0.4;
-                    // Updated to Electric Blue
                     this.ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
                     this.ctx.lineWidth = 2;
                     this.ctx.stroke();
                 }
             }
-
-            // Wormhole center
             const centerGradient = this.ctx.createRadialGradient(0, 0, 0, 0, 0, wormhole.radius * 0.5);
             centerGradient.addColorStop(0, '#000000');
-            centerGradient.addColorStop(0.5, '#3b82f6AA'); // Electric Blue
+            centerGradient.addColorStop(0.5, '#3b82f6AA');
             centerGradient.addColorStop(1, '#3b82f600');
             this.ctx.fillStyle = centerGradient;
             this.ctx.beginPath();
             this.ctx.arc(0, 0, wormhole.radius * 0.5, 0, Math.PI * 2);
             this.ctx.fill();
-
             this.ctx.restore();
         });
     }
@@ -242,36 +270,28 @@ class CosmicBackground {
         this.blackholes.forEach(blackhole => {
             blackhole.rotation += blackhole.rotationSpeed;
             this.applyPhysics(blackhole, 1.5);
-
-            // Event horizon glow - Updated to Cosmic Violet
             const horizonGradient = this.ctx.createRadialGradient(
                 blackhole.x, blackhole.y, blackhole.radius,
                 blackhole.x, blackhole.y, blackhole.eventHorizon
             );
-            horizonGradient.addColorStop(0, '#8b5cf680'); // Violet
+            horizonGradient.addColorStop(0, '#8b5cf680');
             horizonGradient.addColorStop(0.5, '#8b5cf640');
             horizonGradient.addColorStop(1, '#8b5cf600');
             this.ctx.fillStyle = horizonGradient;
             this.ctx.beginPath();
             this.ctx.arc(blackhole.x, blackhole.y, blackhole.eventHorizon, 0, Math.PI * 2);
             this.ctx.fill();
-
-            // Accretion disk
             this.ctx.save();
             this.ctx.translate(blackhole.x, blackhole.y);
             this.ctx.rotate(blackhole.rotation);
-
             for (let i = 0; i < 3; i++) {
                 this.ctx.beginPath();
                 this.ctx.ellipse(0, 0, blackhole.radius * 1.5, blackhole.radius * 0.3, 0, 0, Math.PI * 2);
-                // Updated to Violet
                 this.ctx.strokeStyle = `rgba(139, 92, 246, ${0.3 - i * 0.1})`;
                 this.ctx.lineWidth = 2;
                 this.ctx.stroke();
             }
             this.ctx.restore();
-
-            // Black hole center
             this.ctx.beginPath();
             this.ctx.arc(blackhole.x, blackhole.y, blackhole.radius, 0, Math.PI * 2);
             this.ctx.fillStyle = '#000000';
@@ -281,17 +301,15 @@ class CosmicBackground {
 
     animate() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.drawGalaxies();
         this.drawWormholes();
         this.drawBlackholes();
         this.drawStars();
-
+        this.drawComets();
         requestAnimationFrame(() => this.animate());
     }
 }
 
-// Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => new CosmicBackground());
 } else {
