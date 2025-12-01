@@ -18,8 +18,8 @@ class CosmicBackground {
         this.canvas.style.left = '0';
         this.canvas.style.width = '100%';
         this.canvas.style.height = '100%';
-        // Changed z-index to -1 to sit ON TOP of the CSS wormhole background (which should be -2)
-        this.canvas.style.zIndex = '-1';
+        // Changed z-index to 0 to sit ON TOP of the CSS wormhole background but below content
+        this.canvas.style.zIndex = '0';
         this.canvas.style.pointerEvents = 'none';
         document.body.prepend(this.canvas);
 
