@@ -1,4 +1,4 @@
-// Cosmic Background with Interactive Effects
+// Cosmic Background with Interactive Effects - Enhanced Physics
 class CosmicBackground {
     constructor() {
         this.canvas = document.createElement('canvas');
@@ -7,7 +7,7 @@ class CosmicBackground {
         this.galaxies = [];
         this.wormholes = [];
         this.blackholes = [];
-        this.mouse = { x: 0, y: 0 };
+        this.mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         this.init();
     }
 
@@ -18,7 +18,8 @@ class CosmicBackground {
         this.canvas.style.left = '0';
         this.canvas.style.width = '100%';
         this.canvas.style.height = '100%';
-        this.canvas.style.zIndex = '-2';
+        // Changed z-index to -1 to sit ON TOP of the CSS wormhole background (which should be -2)
+        this.canvas.style.zIndex = '-1';
         this.canvas.style.pointerEvents = 'none';
         document.body.prepend(this.canvas);
 
@@ -29,7 +30,7 @@ class CosmicBackground {
             this.mouse.y = e.clientY;
         });
 
-        this.createStars(200);
+        this.createStars(250);
         this.createGalaxies(3);
         this.createWormholes(2);
         this.createBlackholes(2);
@@ -47,11 +48,12 @@ class CosmicBackground {
             this.stars.push({
                 x: Math.random() * this.canvas.width,
                 y: Math.random() * this.canvas.height,
-                radius: Math.random() * 2,
+                radius: Math.random() * 2 + 0.5,
                 opacity: Math.random(),
                 twinkleSpeed: Math.random() * 0.02 + 0.01,
-                vx: (Math.random() - 0.5) * 0.2,
-                vy: (Math.random() - 0.5) * 0.2
+                vx: (Math.random() - 0.5) * 0.5, // Base velocity
+                vy: (Math.random() - 0.5) * 0.5,
+                friction: 0.95 // Friction for smooth movement
             });
         }
     }
@@ -65,7 +67,10 @@ class CosmicBackground {
                 rotation: Math.random() * Math.PI * 2,
                 rotationSpeed: (Math.random() - 0.5) * 0.002,
                 arms: 3 + Math.floor(Math.random() * 3),
-                color: ['#6366f1', '#ec4899', '#14b8a6'][Math.floor(Math.random() * 3)]
+                color: ['#6366f1', '#ec4899', '#14b8a6'][Math.floor(Math.random() * 3)],
+                vx: 0,
+                vy: 0,
+                friction: 0.92
             });
         }
     }
@@ -78,7 +83,10 @@ class CosmicBackground {
                 radius: Math.random() * 60 + 40,
                 rotation: 0,
                 rotationSpeed: 0.03,
-                pulsePhase: Math.random() * Math.PI * 2
+                pulsePhase: Math.random() * Math.PI * 2,
+                vx: 0,
+                vy: 0,
+                friction: 0.92
             });
         }
     }
@@ -91,27 +99,47 @@ class CosmicBackground {
                 radius: Math.random() * 50 + 30,
                 eventHorizon: Math.random() * 80 + 60,
                 rotation: 0,
-                rotationSpeed: 0.02
+                rotationSpeed: 0.02,
+                vx: 0,
+                vy: 0,
+                friction: 0.92
             });
         }
     }
 
+    applyPhysics(obj, pullFactor = 1) {
+        const dx = this.mouse.x - obj.x;
+        const dy = this.mouse.y - obj.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        // Stronger pull, but capped to prevent flying off too fast
+        // Pull strength increases as you get closer
+        const force = Math.min(1000 / (distance * distance + 100), 0.5) * pullFactor;
+
+        const angle = Math.atan2(dy, dx);
+
+        obj.vx += Math.cos(angle) * force;
+        obj.vy += Math.sin(angle) * force;
+
+        // Apply velocity
+        obj.x += obj.vx;
+        obj.y += obj.vy;
+
+        // Apply friction (damping)
+        obj.vx *= obj.friction || 0.95;
+        obj.vy *= obj.friction || 0.95;
+
+        // Screen wrapping
+        if (obj.x < -100) obj.x = this.canvas.width + 100;
+        if (obj.x > this.canvas.width + 100) obj.x = -100;
+        if (obj.y < -100) obj.y = this.canvas.height + 100;
+        if (obj.y > this.canvas.height + 100) obj.y = -100;
+    }
+
     drawStars() {
         this.stars.forEach(star => {
-            // Gravitational pull towards mouse
-            const dx = this.mouse.x - star.x;
-            const dy = this.mouse.y - star.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const pullStrength = Math.min(200 / (distance + 1), 2);
-
-            star.x += (dx / distance) * pullStrength * 0.1 + star.vx;
-            star.y += (dy / distance) * pullStrength * 0.1 + star.vy;
-
-            // Wrap around screen
-            if (star.x < 0) star.x = this.canvas.width;
-            if (star.x > this.canvas.width) star.x = 0;
-            if (star.y < 0) star.y = this.canvas.height;
-            if (star.y > this.canvas.height) star.y = 0;
+            // Much stronger pull for light stars
+            this.applyPhysics(star, 5.0);
 
             // Twinkle effect
             star.opacity += star.twinkleSpeed;
@@ -123,28 +151,13 @@ class CosmicBackground {
             this.ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
             this.ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
             this.ctx.fill();
-
-            // Star glow
-            const gradient = this.ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, star.radius * 3);
-            gradient.addColorStop(0, `rgba(255, 255, 255, ${star.opacity * 0.3})`);
-            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-            this.ctx.fillStyle = gradient;
-            this.ctx.fillRect(star.x - star.radius * 3, star.y - star.radius * 3, star.radius * 6, star.radius * 6);
         });
     }
 
     drawGalaxies() {
         this.galaxies.forEach(galaxy => {
             galaxy.rotation += galaxy.rotationSpeed;
-
-            // Gravitational pull
-            const dx = this.mouse.x - galaxy.x;
-            const dy = this.mouse.y - galaxy.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const pullStrength = Math.min(100 / (distance + 1), 1);
-
-            galaxy.x += (dx / distance) * pullStrength * 0.05;
-            galaxy.y += (dy / distance) * pullStrength * 0.05;
+            this.applyPhysics(galaxy, 2.0); // Heavy objects move slower
 
             this.ctx.save();
             this.ctx.translate(galaxy.x, galaxy.y);
@@ -190,14 +203,7 @@ class CosmicBackground {
             wormhole.pulsePhase += 0.05;
             const pulse = Math.sin(wormhole.pulsePhase) * 0.2 + 1;
 
-            // Gravitational pull
-            const dx = this.mouse.x - wormhole.x;
-            const dy = this.mouse.y - wormhole.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const pullStrength = Math.min(150 / (distance + 1), 1.5);
-
-            wormhole.x += (dx / distance) * pullStrength * 0.08;
-            wormhole.y += (dy / distance) * pullStrength * 0.08;
+            this.applyPhysics(wormhole, 2.5);
 
             this.ctx.save();
             this.ctx.translate(wormhole.x, wormhole.y);
@@ -233,15 +239,7 @@ class CosmicBackground {
     drawBlackholes() {
         this.blackholes.forEach(blackhole => {
             blackhole.rotation += blackhole.rotationSpeed;
-
-            // Gravitational pull
-            const dx = this.mouse.x - blackhole.x;
-            const dy = this.mouse.y - blackhole.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const pullStrength = Math.min(120 / (distance + 1), 1.2);
-
-            blackhole.x += (dx / distance) * pullStrength * 0.06;
-            blackhole.y += (dy / distance) * pullStrength * 0.06;
+            this.applyPhysics(blackhole, 1.5);
 
             // Event horizon glow
             const horizonGradient = this.ctx.createRadialGradient(
