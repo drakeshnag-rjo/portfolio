@@ -52,7 +52,11 @@ class CosmicBackground {
                 y: Math.random() * this.canvas.height,
                 radius: Math.random() * 2.5 + 1.0,
                 opacity: Math.random() * 0.5 + 0.5,
+                baseOpacity: Math.random() * 0.3 + 0.7, // Base brightness
                 twinkleSpeed: Math.random() * 0.02 + 0.01,
+                blinkFrequency: Math.random() * 0.05 + 0.02, // Different blink speeds
+                blinkPhase: Math.random() * Math.PI * 2, // Random starting phase
+                blinkIntensity: Math.random() * 0.5 + 0.3, // How much it blinks
                 vx: (Math.random() - 0.5) * 0.5,
                 vy: (Math.random() - 0.5) * 0.5,
                 friction: 0.95
@@ -151,10 +155,17 @@ class CosmicBackground {
     drawStars() {
         this.stars.forEach(star => {
             this.applyPhysics(star, 5.0);
-            star.opacity += star.twinkleSpeed;
-            if (star.opacity > 1 || star.opacity < 0.2) {
-                star.twinkleSpeed *= -1;
-            }
+
+            // Update blink phase
+            star.blinkPhase += star.blinkFrequency;
+
+            // Calculate blinking opacity using sine wave for smooth transitions
+            const blinkValue = Math.sin(star.blinkPhase) * star.blinkIntensity;
+            star.opacity = star.baseOpacity + blinkValue;
+
+            // Clamp opacity between 0.1 and 1
+            star.opacity = Math.max(0.1, Math.min(1, star.opacity));
+
             this.ctx.beginPath();
             this.ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
             this.ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;

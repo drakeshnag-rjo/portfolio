@@ -34,6 +34,10 @@
     --transition-fast: 0.2s ease;
     --transition-base: 0.3s ease;
     --transition-slow: 0.5s ease;
+    
+    /* Wormhole Gravity Offset (controlled by JavaScript) */
+    --wormhole-offset-x: 0px;
+    --wormhole-offset-y: 0px;
 }
 
 /* ===================================
@@ -84,7 +88,7 @@ body::after {
     left: 50%;
     width: 200%;
     height: 200%;
-    transform: translate(-50%, -50%);
+    transform: translate(calc(-50% + var(--wormhole-offset-x)), calc(-50% + var(--wormhole-offset-y)));
     z-index: -2;
     background-image:
         repeating-radial-gradient(circle at 50% 50%,
