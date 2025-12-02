@@ -34,7 +34,7 @@
     --transition-fast: 0.2s ease;
     --transition-base: 0.3s ease;
     --transition-slow: 0.5s ease;
-    
+
     /* Wormhole Gravity Offset (controlled by JavaScript) */
     --wormhole-offset-x: 0px;
     --wormhole-offset-y: 0px;
@@ -52,11 +52,14 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    background-color: #050510;
+    /* Deep Void background */
 }
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    /* background-color: var(--bg-primary); */
+    background-color: var(--bg-primary);
+    /* Ensure dark background */
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
