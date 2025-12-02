@@ -52,11 +52,11 @@ class CosmicBackground {
                 y: Math.random() * this.canvas.height,
                 radius: Math.random() * 2.5 + 1.0,
                 opacity: Math.random() * 0.5 + 0.5,
-                baseOpacity: Math.random() * 0.3 + 0.7, // Base brightness
+                baseOpacity: Math.random() * 0.2 + 0.3, // Darker base (0.3 - 0.5)
                 twinkleSpeed: Math.random() * 0.02 + 0.01,
-                blinkFrequency: Math.random() * 0.05 + 0.02, // Different blink speeds
-                blinkPhase: Math.random() * Math.PI * 2, // Random starting phase
-                blinkIntensity: Math.random() * 0.5 + 0.3, // How much it blinks
+                blinkFrequency: Math.random() * 0.08 + 0.03, // Faster blinking (0.03 - 0.11)
+                blinkPhase: Math.random() * Math.PI * 2,
+                blinkIntensity: Math.random() * 0.4 + 0.4, // Stronger blink (0.4 - 0.8)
                 vx: (Math.random() - 0.5) * 0.5,
                 vy: (Math.random() - 0.5) * 0.5,
                 friction: 0.95
