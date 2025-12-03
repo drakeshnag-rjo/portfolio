@@ -18,8 +18,8 @@
     --bg-secondary: #0f172a;
     /* Dark Nebula */
     --bg-tertiary: #1e293b;
-    --bg-card: rgba(15, 23, 42, 0.3);
-    --bg-card-hover: rgba(30, 41, 59, 0.5);
+    --bg-card: rgba(15, 23, 42, 0.05);
+    --bg-card-hover: rgba(30, 41, 59, 0.15);
 
     /* Text Colors */
     --text-primary: #f1f5f9;
@@ -82,7 +82,7 @@ html {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background-color: var(--bg-primary);
+    background-color: transparent;
     /* Ensure dark background */
     color: var(--text-primary);
     line-height: 1.6;
@@ -234,14 +234,14 @@ section {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(10, 10, 15, 0.8);
+    background: rgba(10, 10, 15, 0.4);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: var(--transition-base);
 }
 
 .navbar.scrolled {
-    background: rgba(10, 10, 15, 0.95);
+    background: rgba(10, 10, 15, 0.6);
     box-shadow: var(--shadow-md);
 }
 
@@ -617,7 +617,7 @@ section {
    About Section
    =================================== */
 .about {
-    background: var(--bg-secondary);
+    background: transparent !important;
 }
 
 .about-content {
@@ -647,6 +647,7 @@ section {
     gap: var(--spacing-sm);
     padding: var(--spacing-md);
     background: var(--bg-card);
+    backdrop-filter: blur(10px);
     border-radius: var(--radius-md);
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: var(--transition-base);
@@ -755,7 +756,7 @@ section {
    Skills Section
    =================================== */
 .skills {
-    background: var(--bg-secondary);
+    background: transparent !important;
 }
 
 .skills-container {
@@ -766,6 +767,7 @@ section {
 .skill-category {
     padding: var(--spacing-md);
     background: var(--bg-card);
+    backdrop-filter: blur(10px);
     border-radius: var(--radius-lg);
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -920,7 +922,7 @@ section {
    Research Section
    =================================== */
 .research {
-    background: var(--bg-secondary);
+    background: transparent;
 }
 
 .research-content {
@@ -1088,6 +1090,7 @@ section {
     gap: var(--spacing-sm);
     padding: 1rem 2rem;
     background: var(--bg-card);
+    backdrop-filter: blur(10px);
     border-radius: var(--radius-lg);
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: var(--transition-base);
@@ -1115,7 +1118,7 @@ section {
    =================================== */
 .footer {
     padding: var(--spacing-lg) 0;
-    background: var(--bg-secondary);
+    background: transparent !important;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     text-align: center;
 }
