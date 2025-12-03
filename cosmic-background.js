@@ -9,6 +9,7 @@ class CosmicBackground {
         this.blackholes = [];
         this.comets = [];
         this.solarSystems = [];
+        this.bigBangs = [];
         this.mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
         this.init();
     }
@@ -38,6 +39,7 @@ class CosmicBackground {
         this.createBlackholes(2);
         this.createComets(3);
         this.createSolarSystems(1);
+        this.createBigBangs(1);
 
         this.animate();
     }
@@ -163,6 +165,22 @@ class CosmicBackground {
                 vx: 0,
                 vy: 0,
                 friction: 0.92
+            });
+        }
+    }
+
+    createBigBangs(count) {
+        for (let i = 0; i < count; i++) {
+            this.bigBangs.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                particles: [],
+                state: 'charging', // charging, exploding, fading
+                timer: 0,
+                maxTimer: 100 + Math.random() * 100,
+                radius: 0,
+                maxRadius: 200 + Math.random() * 100,
+                color: '#ffffff'
             });
         }
     }
@@ -421,6 +439,98 @@ class CosmicBackground {
         });
     }
 
+    drawBigBangs() {
+        this.bigBangs.forEach(bang => {
+            if (bang.state === 'charging') {
+                bang.timer++;
+                const progress = bang.timer / 100;
+
+                // Draw gathering energy
+                const radius = 5 + progress * 10;
+                const opacity = progress;
+
+                const gradient = this.ctx.createRadialGradient(
+                    bang.x, bang.y, 0,
+                    bang.x, bang.y, radius * 4
+                );
+                gradient.addColorStop(0, '#ffffff');
+                gradient.addColorStop(0.4, '#fbbf24');
+                gradient.addColorStop(1, 'rgba(251, 191, 36, 0)');
+
+                this.ctx.fillStyle = gradient;
+                this.ctx.beginPath();
+                this.ctx.arc(bang.x, bang.y, radius * 4, 0, Math.PI * 2);
+                this.ctx.fill();
+
+                // Implosion effect lines
+                for (let i = 0; i < 8; i++) {
+                    const angle = (Date.now() / 500) + (i * Math.PI / 4);
+                    const dist = 50 - (progress * 40);
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(bang.x + Math.cos(angle) * dist, bang.y + Math.sin(angle) * dist);
+                    this.ctx.lineTo(bang.x + Math.cos(angle) * (dist - 10), bang.y + Math.sin(angle) * (dist - 10));
+                    this.ctx.strokeStyle = `rgba(255, 255, 255, ${progress})`;
+                    this.ctx.stroke();
+                }
+
+                if (bang.timer >= 100) {
+                    bang.state = 'exploding';
+                    // Create explosion particles
+                    for (let i = 0; i < 100; i++) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const speed = Math.random() * 8 + 2;
+                        bang.particles.push({
+                            x: bang.x,
+                            y: bang.y,
+                            vx: Math.cos(angle) * speed,
+                            vy: Math.sin(angle) * speed,
+                            life: 1.0,
+                            color: ['#ffffff', '#fbbf24', '#f59e0b', '#ef4444'][Math.floor(Math.random() * 4)],
+                            size: Math.random() * 3 + 1
+                        });
+                    }
+                }
+            } else if (bang.state === 'exploding') {
+                // Draw shockwave
+                bang.radius += 5;
+                if (bang.radius < bang.maxRadius) {
+                    this.ctx.beginPath();
+                    this.ctx.arc(bang.x, bang.y, bang.radius, 0, Math.PI * 2);
+                    this.ctx.strokeStyle = `rgba(255, 255, 255, ${1 - bang.radius / bang.maxRadius})`;
+                    this.ctx.lineWidth = 2;
+                    this.ctx.stroke();
+                }
+
+                // Update and draw particles
+                bang.particles.forEach((p, index) => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life -= 0.01;
+                    p.vx *= 0.95;
+                    p.vy *= 0.95;
+
+                    if (p.life > 0) {
+                        this.ctx.fillStyle = p.color + Math.floor(p.life * 255).toString(16).padStart(2, '0');
+                        this.ctx.beginPath();
+                        this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        this.ctx.fill();
+                    } else {
+                        bang.particles.splice(index, 1);
+                    }
+                });
+
+                if (bang.particles.length === 0 && bang.radius >= bang.maxRadius) {
+                    // Reset
+                    bang.state = 'charging';
+                    bang.timer = 0;
+                    bang.radius = 0;
+                    bang.x = Math.random() * this.canvas.width;
+                    bang.y = Math.random() * this.canvas.height;
+                }
+            }
+        });
+    }
+
 
     animate() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -428,6 +538,7 @@ class CosmicBackground {
         this.drawWormholes();
         this.drawBlackholes();
         this.drawSolarSystems();
+        this.drawBigBangs();
         this.drawStars();
         this.drawComets();
         requestAnimationFrame(() => this.animate());
