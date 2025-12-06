@@ -51,7 +51,7 @@ const roleElement = document.getElementById('rotating-role');
 function rotateRole() {
     roleElement.style.opacity = '0';
     roleElement.style.transform = 'translateY(20px)';
-    
+
     setTimeout(() => {
         currentRoleIndex = (currentRoleIndex + 1) % roles.length;
         roleElement.textContent = roles[currentRoleIndex];
@@ -112,11 +112,11 @@ document.querySelectorAll('section, .expertise-card, .timeline-item, .education-
 // Skill Tags Interaction
 // ===================================
 document.querySelectorAll('.skill-tag').forEach(tag => {
-    tag.addEventListener('mouseenter', function() {
+    tag.addEventListener('mouseenter', function () {
         this.style.transform = 'translateY(-3px) scale(1.05)';
     });
-    
-    tag.addEventListener('mouseleave', function() {
+
+    tag.addEventListener('mouseleave', function () {
         this.style.transform = 'translateY(0) scale(1)';
     });
 });
@@ -136,7 +136,7 @@ if (footerText) {
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const orbs = document.querySelectorAll('.gradient-orb');
-    
+
     orbs.forEach((orb, index) => {
         const speed = 0.5 + (index * 0.2);
         orb.style.transform = `translateY(${scrolled * speed}px)`;
@@ -150,12 +150,12 @@ const sections = document.querySelectorAll('section[id]');
 
 function highlightNavigation() {
     const scrollY = window.pageYOffset;
-    
+
     sections.forEach(section => {
         const sectionHeight = section.offsetHeight;
         const sectionTop = section.offsetTop - 100;
         const sectionId = section.getAttribute('id');
-        
+
         if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
@@ -175,7 +175,7 @@ window.addEventListener('scroll', highlightNavigation);
 function createTypingEffect(element, text, speed = 50) {
     let i = 0;
     element.textContent = '';
-    
+
     function type() {
         if (i < text.length) {
             element.textContent += text.charAt(i);
@@ -183,7 +183,7 @@ function createTypingEffect(element, text, speed = 50) {
             setTimeout(type, speed);
         }
     }
-    
+
     type();
 }
 
@@ -194,7 +194,7 @@ const emailLink = document.querySelector('a[href^="mailto:"]');
 if (emailLink) {
     emailLink.addEventListener('click', (e) => {
         const email = emailLink.getAttribute('href').replace('mailto:', '');
-        
+
         // Create temporary input to copy email
         const tempInput = document.createElement('input');
         tempInput.value = email;
@@ -202,7 +202,7 @@ if (emailLink) {
         tempInput.select();
         document.execCommand('copy');
         document.body.removeChild(tempInput);
-        
+
         // Optional: Show a tooltip or notification
         console.log('Email copied to clipboard!');
     });
@@ -222,7 +222,7 @@ if ('IntersectionObserver' in window) {
             }
         });
     });
-    
+
     document.querySelectorAll('img[data-src]').forEach(img => {
         imageObserver.observe(img);
     });
@@ -275,3 +275,38 @@ console.log('%c👋 Hello, Recruiter!', 'color: #6366f1; font-size: 24px; font-w
 console.log('%cInterested in my work? Let\'s connect!', 'color: #14b8a6; font-size: 16px;');
 console.log('%cEmail: rakesh.mlops12@gmail.com', 'color: #ec4899; font-size: 14px;');
 console.log('%cGitHub: https://github.com/drakeshnag-rjo', 'color: #f59e0b; font-size: 14px;');
+
+// ===================================
+// Dynamic Google Scholar Publication Count
+// ===================================
+async function updatePublicationCount() {
+    const publicationsElement = document.getElementById('publications-count');
+    const scholarUserId = 'bz6-A4oAAAAJ';
+
+    try {
+        // Attempt to fetch from Google Scholar
+        // Note: This may be blocked by CORS, so we'll use a fallback
+        const response = await fetch(`https://scholar.google.com/citations?user=${scholarUserId}&hl=en`);
+        const html = await response.text();
+
+        // Parse the HTML to extract publication count
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+
+        // Google Scholar shows publications in a table
+        const publicationRows = doc.querySelectorAll('#gsc_a_b .gsc_a_t');
+        const count = publicationRows.length;
+
+        if (count > 0) {
+            publicationsElement.textContent = `${count}+`;
+            console.log(`✅ Updated publication count: ${count}+`);
+        }
+    } catch (error) {
+        console.log('ℹ️ Using static publication count (Google Scholar fetch blocked by CORS)');
+        // Keep the static count of 7+ as fallback
+    }
+}
+
+// Call the function when the page loads
+document.addEventListener('DOMContentLoaded', updatePublicationCount);
+
