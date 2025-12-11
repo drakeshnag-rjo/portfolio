@@ -918,6 +918,99 @@ section {
     font-size: 0.85rem;
 }
 
+/* Experience Details Expansion */
+.expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin-top: var(--spacing-sm);
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: var(--radius-md);
+    color: var(--primary-light);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.expand-btn:hover {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.expand-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.experience-details {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.3s ease, margin-top 0.3s ease;
+}
+
+.experience-details.expanded {
+    max-height: 3000px;
+    opacity: 1;
+    margin-top: var(--spacing-md);
+}
+
+.experience-details h5 {
+    color: var(--primary-light);
+    font-size: 1.1rem;
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 600;
+}
+
+.experience-details h5:first-child {
+    margin-top: 0;
+}
+
+.experience-details ul {
+    list-style: none;
+    margin: var(--spacing-sm) 0;
+}
+
+.experience-details li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.experience-details li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.experience-details li strong {
+    color: var(--primary-light);
+}
+
+.tech-stack {
+    margin-top: var(--spacing-md);
+    padding-top: var(--spacing-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tech-stack strong {
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: var(--spacing-sm);
+}
+
+.tech-stack .skill-tags {
+    margin-top: var(--spacing-sm);
+}
+
 /* ===================================
    Research Section
    =================================== */
@@ -931,11 +1024,13 @@ section {
 }
 
 .education-section,
+.certifications-section,
 .publications-section {
     margin-bottom: var(--spacing-xl);
 }
 
 .education-section h3,
+.certifications-section h3,
 .publications-section h3 {
     font-size: 2rem;
     margin-bottom: var(--spacing-md);

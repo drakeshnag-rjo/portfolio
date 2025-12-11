@@ -310,3 +310,23 @@ async function updatePublicationCount() {
 // Call the function when the page loads
 document.addEventListener('DOMContentLoaded', updatePublicationCount);
 
+// ===================================
+// Toggle Experience Details
+// ===================================
+function toggleDetails(button) {
+    const timelineContent = button.closest('.timeline-content');
+    const details = timelineContent.querySelector('.experience-details');
+    const buttonText = button.querySelector('span');
+    const svg = button.querySelector('svg');
+
+    if (details.classList.contains('expanded')) {
+        details.classList.remove('expanded');
+        buttonText.textContent = 'View Details';
+        svg.style.transform = 'rotate(0deg)';
+    } else {
+        details.classList.add('expanded');
+        buttonText.textContent = 'Hide Details';
+        svg.style.transform = 'rotate(180deg)';
+    }
+}
+
