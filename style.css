@@ -22,10 +22,10 @@
     --bg-card-hover: rgba(30, 41, 59, 0.15);
 
     /* Text Colors */
-    --text-primary: #f1f5f9;
+    --text-primary: #f8fafc;
     /* Starlight White */
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
 
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
@@ -120,22 +120,22 @@ body::after {
     background-image:
         repeating-radial-gradient(circle at 50% 50%,
             transparent 0px,
-            rgba(99, 102, 241, 0.25) 3px,
+            rgba(99, 102, 241, 0.55) 3px,
             transparent 6px,
             transparent 30px),
         repeating-radial-gradient(circle at 50% 50%,
             transparent 0px,
-            rgba(236, 72, 153, 0.2) 3px,
+            rgba(236, 72, 153, 0.45) 3px,
             transparent 6px,
             transparent 45px),
         repeating-radial-gradient(circle at 50% 50%,
             transparent 0px,
-            rgba(20, 184, 166, 0.18) 2px,
+            rgba(20, 184, 166, 0.40) 2px,
             transparent 5px,
             transparent 60px),
         repeating-radial-gradient(circle at 50% 50%,
             transparent 0px,
-            rgba(99, 102, 241, 0.15) 2px,
+            rgba(99, 102, 241, 0.35) 2px,
             transparent 4px,
             transparent 80px);
     animation: wormholePulse 15s ease-in-out infinite, wormholeRotate 45s linear infinite reverse;
@@ -203,6 +203,7 @@ h4 {
 p {
     margin-bottom: var(--spacing-sm);
     color: var(--text-secondary);
+    font-weight: 400;
 }
 
 a {
@@ -462,7 +463,7 @@ section {
 }
 
 .stat-item p {
-    color: var(--text-muted);
+    color: var(--text-secondary);
     font-size: 0.9rem;
 }
 
@@ -660,8 +661,23 @@ section {
 }
 
 .highlight-icon {
-    font-size: 2.5rem;
+    font-size: 2rem;
     flex-shrink: 0;
+    color: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: var(--radius-sm);
+}
+
+.highlight-icon i {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .highlight-item h4 {
@@ -670,7 +686,7 @@ section {
 }
 
 .highlight-item p {
-    color: var(--text-muted);
+    color: var(--text-secondary);
     margin: 0;
 }
 
@@ -720,6 +736,19 @@ section {
 .expertise-icon {
     font-size: 3rem;
     margin-bottom: var(--spacing-sm);
+    display: inline-block;
+}
+
+.expertise-icon i {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: var(--transition-base);
+}
+
+.expertise-card:hover .expertise-icon i {
+    transform: scale(1.1);
 }
 
 .expertise-card h3 {
@@ -728,7 +757,7 @@ section {
 }
 
 .expertise-card>p {
-    color: var(--text-muted);
+    color: var(--text-secondary);
     font-size: 0.9rem;
     margin-bottom: var(--spacing-sm);
 }
@@ -743,6 +772,7 @@ section {
     padding-left: 1.5rem;
     position: relative;
     color: var(--text-secondary);
+    font-weight: 400;
 }
 
 .expertise-list li::before {
@@ -892,6 +922,7 @@ section {
     padding-left: 1.5rem;
     position: relative;
     color: var(--text-secondary);
+    font-weight: 400;
 }
 
 .experience-highlights li::before {
@@ -981,6 +1012,7 @@ section {
     position: relative;
     color: var(--text-secondary);
     line-height: 1.6;
+    font-weight: 400;
 }
 
 .experience-details li::before {
@@ -1060,8 +1092,17 @@ section {
 }
 
 .degree-icon {
-    font-size: 3rem;
+    font-size: 4rem;
     margin-bottom: var(--spacing-sm);
+    transition: var(--transition-base);
+}
+
+.degree-icon i {
+    display: inline-block;
+}
+
+.education-card:hover .degree-icon {
+    transform: scale(1.1) rotate(5deg);
 }
 
 .education-card h4 {
@@ -1326,6 +1367,7 @@ section {
 .scholar-icon {
     font-size: 4rem;
     flex-shrink: 0;
+    color: var(--accent-color);
 }
 
 .scholar-content {
