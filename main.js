@@ -71,8 +71,9 @@ if (revealEls.length) {
     }
 }
 
-// --- 3D tilt cards (pointer devices only) ---
-if (!reducedMotion && window.matchMedia('(hover: hover)').matches) {
+// --- 3D tilt cards with moving glare (pointer devices only) ---
+const finePointer = window.matchMedia('(hover: hover)').matches;
+if (!reducedMotion && finePointer) {
     document.querySelectorAll('.tilt').forEach(card => {
         card.addEventListener('pointermove', e => {
             const r = card.getBoundingClientRect();
@@ -80,11 +81,91 @@ if (!reducedMotion && window.matchMedia('(hover: hover)').matches) {
             const y = (e.clientY - r.top) / r.height - 0.5;
             card.style.transform =
                 `perspective(900px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-2px)`;
+            // glare position, consumed by .tilt::after in CSS
+            card.style.setProperty('--mx', `${(x + 0.5) * 100}%`);
+            card.style.setProperty('--my', `${(y + 0.5) * 100}%`);
         });
         card.addEventListener('pointerleave', () => {
             card.style.transform = '';
         });
     });
+}
+
+// --- Cursor spotlight (a soft light that follows the pointer) ---
+if (!reducedMotion && finePointer) {
+    const glow = document.createElement('div');
+    glow.className = 'cursor-glow';
+    glow.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(glow);
+    let gx = -1000, gy = -1000, tx = gx, ty = gy, glowRaf = null;
+    const step = () => {
+        gx += (tx - gx) * 0.12;
+        gy += (ty - gy) * 0.12;
+        glow.style.transform = `translate(${gx}px, ${gy}px)`;
+        if (Math.abs(tx - gx) + Math.abs(ty - gy) > 0.5) {
+            glowRaf = requestAnimationFrame(step);
+        } else {
+            glowRaf = null;
+        }
+    };
+    window.addEventListener('pointermove', e => {
+        tx = e.clientX;
+        ty = e.clientY;
+        if (!glowRaf) glowRaf = requestAnimationFrame(step);
+    }, { passive: true });
+}
+
+// --- Magnetic buttons ---
+if (!reducedMotion && finePointer) {
+    document.querySelectorAll('.btn, .contact-link').forEach(el => {
+        el.addEventListener('pointermove', e => {
+            const r = el.getBoundingClientRect();
+            const dx = e.clientX - (r.left + r.width / 2);
+            const dy = e.clientY - (r.top + r.height / 2);
+            el.style.transform = `translate(${dx * 0.12}px, ${dy * 0.22}px)`;
+        });
+        el.addEventListener('pointerleave', () => {
+            el.style.transform = '';
+        });
+    });
+}
+
+// --- Count-up numbers (runs when an element becomes visible) ---
+function countUp(el, duration = 1100) {
+    const raw = el.textContent.trim();
+    const match = raw.match(/^(\d[\d,]*)(\+?)$/);
+    if (!match) return; // non-numeric stats (e.g. "Ph.D.") stay as-is
+    const target = parseInt(match[1].replace(/,/g, ''), 10);
+    const suffix = match[2];
+    if (reducedMotion || !target) return;
+    const t0 = performance.now();
+    const tick = now => {
+        const p = Math.min((now - t0) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased).toLocaleString() + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+}
+window.countUp = countUp;
+
+// hero stats + research banner metrics count up once on load/reveal
+window.addEventListener('load', () => {
+    document.querySelectorAll('.stat-item h3, .research-metrics h4').forEach(el => countUp(el));
+});
+
+// --- Scroll progress bar ---
+if (document.querySelector('section')) {
+    const bar = document.createElement('div');
+    bar.id = 'scroll-progress';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+    const update = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = max > 0 ? `${(window.scrollY / max) * 100}%` : '0%';
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
 }
 
 // --- Rotating role (hero) ---

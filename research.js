@@ -61,10 +61,15 @@ function renderPublications() {
 
 function renderMetrics(profile, pubCount) {
     const m = profile.metrics;
-    document.getElementById('metric-citations').textContent = m.citations.toLocaleString();
-    document.getElementById('metric-hindex').textContent = m.h_index;
-    document.getElementById('metric-i10').textContent = m.i10_index;
-    document.getElementById('metric-pubcount').textContent = pubCount;
+    const set = (id, value) => {
+        const el = document.getElementById(id);
+        el.textContent = value.toLocaleString();
+        window.countUp?.(el);
+    };
+    set('metric-citations', m.citations);
+    set('metric-hindex', m.h_index);
+    set('metric-i10', m.i10_index);
+    set('metric-pubcount', pubCount);
     document.getElementById('metrics-updated').textContent =
         `Last updated ${profile.last_updated}`;
 }

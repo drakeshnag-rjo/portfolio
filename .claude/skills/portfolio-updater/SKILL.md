@@ -35,6 +35,12 @@ GitHub Pages from the `main` branch to the custom domain in `CNAME`
 
 ## Workflow: Sync publications from Google Scholar
 
+Automatic: `.github/workflows/update-scholar.yml` runs
+`scripts/update_scholar.py` every Monday (also triggerable from the
+repo's Actions tab) and commits `data/publications.json` changes, which
+redeploys the site. Manual sync (below) is only needed when the Action
+is blocked by Scholar or a new paper can't wait for Monday.
+
 The user's Scholar profile:
 `https://scholar.google.com/citations?hl=en&user=bz6-A4oAAAAJ`
 

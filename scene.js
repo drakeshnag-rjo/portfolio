@@ -22,11 +22,38 @@ function init(canvas) {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
     const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x06070d, 0.028);
     const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
     camera.position.z = 6;
 
     const group = new THREE.Group();
     scene.add(group);
+
+    // --- Distant starfield (adds depth behind the network) ---
+    const STAR_COUNT = 650;
+    const starPos = new Float32Array(STAR_COUNT * 3);
+    for (let i = 0; i < STAR_COUNT; i++) {
+        // pseudo-random but deterministic scatter in a shell
+        const a = (i * 2.399963) % (Math.PI * 2);          // golden angle
+        const b = Math.acos(1 - 2 * ((i * 97 % STAR_COUNT) / STAR_COUNT));
+        const r = 14 + (i * 53 % 100) / 100 * 22;
+        starPos.set([
+            r * Math.sin(b) * Math.cos(a),
+            r * Math.sin(b) * Math.sin(a),
+            -Math.abs(r * Math.cos(b)) - 4
+        ], i * 3);
+    }
+    const starGeo = new THREE.BufferGeometry();
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({
+        color: 0x8ea2c9,
+        size: 0.055,
+        transparent: true,
+        opacity: 0.55,
+        sizeAttenuation: true,
+        depthWrite: false
+    }));
+    scene.add(stars);
 
     // --- Node cloud on a jittered sphere ---
     const NODE_COUNT = 220;
@@ -144,6 +171,12 @@ function init(canvas) {
             core.rotation.y = -t * 0.2;
             core.rotation.x = t * 0.12;
             coreGlow.rotation.y = t * 0.3;
+            // breathing core + drifting stars
+            const pulse = 1 + Math.sin(t * 1.4) * 0.07;
+            coreGlow.scale.setScalar(pulse);
+            core.material.opacity = 0.26 + Math.sin(t * 1.4) * 0.08;
+            stars.rotation.y = -t * 0.008;
+            stars.rotation.z = t * 0.004;
             camera.position.x += (pointer.x * 0.35 - camera.position.x) * 0.04;
             camera.position.y += (-pointer.y * 0.25 - camera.position.y) * 0.04;
             camera.lookAt(group.position.x, 0, 0);

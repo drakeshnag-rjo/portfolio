@@ -555,6 +555,23 @@ h1, h2, h3, h4 {
     transform: translateZ(24px);
 }
 
+/* moving glare that follows the pointer (--mx/--my set by main.js) */
+.tilt::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%),
+            rgba(255, 255, 255, 0.09), transparent 65%);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    pointer-events: none;
+}
+
+.tilt:hover::after {
+    opacity: 1;
+}
+
 .card-icon {
     width: 46px;
     height: 46px;
@@ -1045,6 +1062,46 @@ h1, h2, h3, h4 {
 
 .footer-links a:hover {
     color: var(--teal);
+}
+
+/* ---------- Elite layer: spotlight, progress, grain ---------- */
+.cursor-glow {
+    position: fixed;
+    top: -300px;
+    left: -300px;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+            rgba(45, 212, 191, 0.055) 0%,
+            rgba(129, 140, 248, 0.035) 40%,
+            transparent 70%);
+    pointer-events: none;
+    z-index: 3;
+    will-change: transform;
+}
+
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: var(--grad);
+    z-index: 200;
+    box-shadow: 0 0 12px rgba(45, 212, 191, 0.6);
+    pointer-events: none;
+}
+
+/* film grain — a whisper of texture over everything */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    pointer-events: none;
+    opacity: 0.028;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ---------- Reveal on scroll ---------- */
