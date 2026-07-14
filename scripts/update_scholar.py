@@ -33,8 +33,24 @@ def guess_type(venue: str) -> str:
     return "journal"
 
 
-def fetch_profile():
+def _setup_proxy_if_needed():
+    """Google blocks datacenter IPs (like GitHub runners); route scholarly
+    through rotating free proxies when the direct connection is refused."""
+    from scholarly import ProxyGenerator, scholarly
+
+    pg = ProxyGenerator()
+    if pg.FreeProxies():
+        scholarly.use_proxy(pg)
+        print("Using rotating free proxies.")
+    else:
+        print("No working free proxy found; continuing without one.")
+
+
+def fetch_profile(use_proxy: bool = False):
     from scholarly import scholarly
+
+    if use_proxy:
+        _setup_proxy_if_needed()
 
     author = scholarly.search_author_id(SCHOLAR_ID)
     author = scholarly.fill(author, sections=["basics", "indices", "publications"])
@@ -90,9 +106,13 @@ def main() -> int:
     data = json.loads(DATA_FILE.read_text())
     try:
         metrics, fetched = fetch_profile()
-    except Exception as exc:  # noqa: BLE001 - fail soft, keep existing data
-        print(f"Scholar fetch failed, keeping existing data: {exc}")
-        return 0
+    except Exception as exc:  # noqa: BLE001 - direct fetch blocked, retry via proxy
+        print(f"Direct fetch failed ({exc}); retrying through proxies…")
+        try:
+            metrics, fetched = fetch_profile(use_proxy=True)
+        except Exception as exc2:  # noqa: BLE001 - fail soft, keep existing data
+            print(f"Scholar fetch failed, keeping existing data: {exc2}")
+            return 0
 
     if not fetched or metrics["citations"] == 0:
         print("Scholar returned an empty/implausible profile; keeping existing data.")
