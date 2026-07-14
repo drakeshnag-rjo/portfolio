@@ -142,6 +142,17 @@ def main() -> int:
         if title not in fetched_titles:
             merged.append(prior)
 
+    # Scholar sometimes lists the same paper twice; keep one per title
+    seen_titles = set()
+    deduped = []
+    for pub in merged:
+        key = normalize(pub["title"])
+        if key in seen_titles:
+            continue
+        seen_titles.add(key)
+        deduped.append(pub)
+    merged = deduped
+
     merged.sort(key=lambda p: (-p.get("citations", 0), -p.get("year", 0)))
 
     data["scholar_profile"]["metrics"] = metrics
