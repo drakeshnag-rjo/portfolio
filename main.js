@@ -210,7 +210,7 @@ if (roleElement) {
 // --- Publication count from the data file (single source of truth) ---
 const publicationsElement = document.getElementById('publications-count');
 if (publicationsElement) {
-    fetch('data/publications.json')
+    fetch('data/publications.json', { cache: 'no-cache' })
         .then(r => (r.ok ? r.json() : Promise.reject(r.status)))
         .then(data => {
             publicationsElement.textContent = `${data.publications.length}`;

@@ -76,7 +76,9 @@ function renderMetrics(profile, pubCount) {
 
 async function loadPublications() {
     try {
-        const response = await fetch('data/publications.json');
+        // no-cache = revalidate with the server so fresh Scholar
+        // syncs show up immediately instead of after cache expiry
+        const response = await fetch('data/publications.json', { cache: 'no-cache' });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
 
