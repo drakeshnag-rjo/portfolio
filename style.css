@@ -226,6 +226,9 @@ h1, h2, h3, h4 {
 }
 
 .nav-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
     font-family: var(--font-display);
     font-weight: 700;
     font-size: 1.05rem;
@@ -233,6 +236,20 @@ h1, h2, h3, h4 {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.logo-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    flex-shrink: 0;
+    box-shadow: 0 0 16px rgba(45, 212, 191, 0.25);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.nav-logo:hover .logo-mark {
+    transform: rotate(-6deg) scale(1.08);
+    box-shadow: 0 0 28px rgba(45, 212, 191, 0.45);
 }
 
 .nav-menu {
@@ -1040,6 +1057,20 @@ h1, h2, h3, h4 {
     text-align: center;
     color: var(--text-3);
     font-size: 0.9rem;
+}
+
+.footer-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    margin: 0 auto 1rem;
+    display: block;
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.2);
+    transition: transform var(--transition-base);
+}
+
+.footer-mark:hover {
+    transform: rotate(6deg) scale(1.1);
 }
 
 .footer-tagline {
