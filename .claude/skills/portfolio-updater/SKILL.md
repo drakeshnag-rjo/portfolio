@@ -22,15 +22,16 @@ GitHub Pages from the `main` branch to the custom domain in `CNAME`
 
 | File | Role |
 |---|---|
-| `index.html` | Single-page main site: hero, about, expertise, skills, experience, credentials (education + certs), contact |
+| `index.html` | Single-page main site: 3D hero, about, expertise (bento), skills, experience timeline, credentials, research teaser, contact |
 | `research.html` | Dedicated research page: Scholar metrics, filterable publication list, research interests |
-| `data/publications.json` | **Single source of truth** for publications + citation metrics. `research.html` and the hero publication counter both render from it |
-| `style.css` | Global styles and design tokens (`:root` variables) |
-| `research.css` | Research-page-only styles (extends the same tokens) |
-| `script.js` | Main-page JS (nav, role carousel, scroll effects, experience toggles) — it assumes hero elements exist, so do NOT include it on subpages |
-| `research.js` | Research-page JS (nav + JSON rendering/filter/sort) |
-| `cosmic-background.js`, `wormhole-gravity.js` | Decorative canvas backgrounds |
-| `cookie-consent.js`, `gdpr-styles.css` | GDPR consent — include both on every page |
+| `data/publications.json` | **Single source of truth** for publications + citation metrics. `research.html` and the hero counters both render from it |
+| `style.css` | "Obsidian Aurora" design system: tokens in `:root` (new names + legacy aliases like `--bg-card` that older partials rely on) |
+| `research.css` | Research-page-only styles (consumes the tokens) |
+| `main.js` | Shared, null-guarded page behaviour (nav, reveal-on-scroll, tilt cards, typewriter role, JSON counters, experience toggles, footer year). Safe to include on EVERY page |
+| `scene.js` | Three.js hero scene (ES module; Three.js comes from the jsdelivr CDN via the import map in index.html's head). Index page only |
+| `research.js` | Research-page JS (JSON rendering/filter/sort only) |
+| `cookie-consent.js`, `gdpr-styles.css` | GDPR consent — include both on every page (standalone, hardcoded colors) |
+| `favicon.svg`, `og-image.png`, `robots.txt`, `sitemap.xml` | SEO assets — add new pages to the sitemap |
 
 ## Workflow: Sync publications from Google Scholar
 
@@ -87,20 +88,25 @@ canonical example); short entries can omit it. Quantify achievements where
 the user provides numbers, and end each detailed entry with a
 `tech-stack` block of `skill-tag` spans.
 
-## Design conventions
+## Design conventions ("Obsidian Aurora")
 
-- Colors, spacing, radii, shadows come from `:root` variables in
-  `style.css` ("Deep Space Voyager" palette — electric blue #3b82f6,
-  cosmic violet #8b5cf6, warp cyan #06b6d4 on deep-void #050510).
-  Never hardcode new colors; reuse the tokens.
-- Fonts: Inter (body) + JetBrains Mono (numbers/code), loaded from Google
-  Fonts in each page's `<head>`.
-- Cards share the pattern: `var(--bg-card)` background, 1px
-  `rgba(255,255,255,0.05)` border, `var(--radius-lg)`, hover lift +
-  `rgba(99,102,241,0.3)` border.
-- New pages: copy the `<head>`, navbar, footer, and cookie button from
-  `research.html` (not `index.html`, whose script.js will crash on pages
-  without hero elements). Add `active` class to the current page's nav link.
+- Palette: near-black `--bg` #06070d, aurora gradient `--grad`
+  (teal #2dd4bf → indigo #818cf8 → violet #a78bfa). Accents sparingly.
+  Never hardcode new colors; reuse the tokens in `style.css`.
+- Fonts: Space Grotesk (headings), Inter (body), JetBrains Mono
+  (labels/numbers/kickers), loaded from Google Fonts in each `<head>`.
+- Recurring pieces: `.kicker` mono section labels, `.card` glass surfaces
+  (blur + 1px `--border`, teal glow on hover), `.tilt` for 3D hover tilt,
+  `.reveal` for scroll entrance (main.js drives both), pill nav with teal
+  `.active` state, gradient text via `.grad-text`.
+- Reveal-on-scroll is rect-based in main.js, NOT IntersectionObserver —
+  IO reports no intersections in some embedded browsers, which would leave
+  content invisible. Keep it that way.
+- The Three.js scene respects `prefers-reduced-motion` (renders one static
+  frame) and pauses when scrolled past. Keep those behaviours if editing.
+- New pages: copy `research.html`'s shell (`<head>`, navbar, footer,
+  cookie button, `main.js` include). Mark the current page's nav link
+  `active`. Do NOT include `scene.js` outside index.html.
 
 ## Deploying
 

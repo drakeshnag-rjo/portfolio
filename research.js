@@ -1,33 +1,9 @@
 // ===================================
-// Research Page — Navigation + Publications
+// Research Page — Publications rendering
+// Navigation/menu behaviour lives in main.js (shared).
 // Data source: data/publications.json (single source of truth,
 // refreshed from Google Scholar — see .claude/skills/portfolio-updater)
 // ===================================
-
-// --- Navbar (scroll style + mobile menu) ---
-const navbar = document.getElementById('navbar');
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('nav-menu');
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
-});
 
 // --- Publications ---
 const TYPE_LABELS = {
