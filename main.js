@@ -184,7 +184,14 @@ if (roleElement) {
         'DevOps Architect'
     ];
     if (reducedMotion) {
-        roleElement.textContent = roles[0];
+        // roles are content, not decoration — keep rotating them even
+        // with reduced motion (common default on iOS), just without
+        // the typing animation
+        let i = 0;
+        setInterval(() => {
+            i = (i + 1) % roles.length;
+            roleElement.textContent = roles[i];
+        }, 4000);
     } else {
         // typewriter cycle
         let roleIndex = 0, charIndex = 0, deleting = false;
