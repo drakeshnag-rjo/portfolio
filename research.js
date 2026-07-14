@@ -48,12 +48,12 @@ function renderPublications() {
             <div class="pub-content">
                 <div class="pub-meta">
                     <span class="pub-badge ${pub.type}">${TYPE_LABELS[pub.type] || pub.type}</span>
-                    <span class="pub-year">${pub.year}</span>
+                    ${pub.year ? `<span class="pub-year">${pub.year}</span>` : ''}
                     ${pub.citations > 0 ? `<span class="pub-citations"><i class="fas fa-quote-right"></i> ${pub.citations} citations</span>` : ''}
                 </div>
                 <h4>${escapeHtml(pub.title)}</h4>
                 <p class="pub-authors">${escapeHtml(pub.authors)}</p>
-                <p class="pub-venue">${escapeHtml(pub.venue)}</p>
+                ${pub.venue ? `<p class="pub-venue">${escapeHtml(pub.venue)}</p>` : ''}
             </div>
         </article>`)
         .join('');

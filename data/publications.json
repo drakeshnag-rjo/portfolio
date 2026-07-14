@@ -3,7 +3,11 @@
     "name": "Dr. RakeshNag Dasari",
     "profile_url": "https://scholar.google.com/citations?hl=en&user=bz6-A4oAAAAJ",
     "affiliation": "Acharya Nagarjuna University",
-    "interests": ["Cloud Security", "Machine Learning", "Deep Learning"],
+    "interests": [
+      "Cloud Security",
+      "Machine Learning",
+      "Deep Learning"
+    ],
     "metrics": {
       "citations": 607,
       "citations_since_2021": 601,
@@ -59,6 +63,14 @@
       "venue": "Scalable Computing: Practice and Experience 25(6), 4930-4939",
       "year": 2024,
       "citations": 45,
+      "type": "journal"
+    },
+    {
+      "title": "Dynamic Weight Allocation–Based Network Security and Anomaly Detection Model for Intelligent VANETs",
+      "authors": "A. Quraishi, R. Dasari, S. Dangiya, et al.",
+      "venue": "Transactions on Emerging Telecommunications Technologies 36(6), e70174",
+      "year": 2025,
+      "citations": 36,
       "type": "journal"
     },
     {
@@ -156,6 +168,46 @@
       "year": 2023,
       "citations": 0,
       "type": "patent"
+    },
+    {
+      "title": "A Multiuse Framework for Cloud Based Security on Network in Data Centre",
+      "authors": "Rakesh Nag Dasari, G Rama Mohan Babu",
+      "venue": "Anveshana’s International Journal of Research in Engineering and Applied Sciences 4(11), 8-15",
+      "year": 2019,
+      "citations": 0,
+      "type": "journal"
+    },
+    {
+      "title": "A Framework for Multipurpose Cloud Based Data Centre Network Security",
+      "authors": "Mr RakeshNag Dasari, Y Prasanth, O NagaRaju",
+      "venue": "International Journal of Applied Engineering Research 12(22), 12189-12196",
+      "year": 2017,
+      "citations": 0,
+      "type": "journal"
+    },
+    {
+      "title": "A Novel Framework for Cloud Storage Security Using two way Verification",
+      "authors": "Rakesh Nag Dasari, Y Prasanth, O NagaRaju",
+      "venue": "International Journal of Applied Engineering Research 12(22), 11787-11795",
+      "year": 2017,
+      "citations": 0,
+      "type": "journal"
+    },
+    {
+      "title": "Imperfect-Debugging and Change-Point Problem for Analyzing Software Reliability Growth Model by Genetic Algorithm",
+      "authors": "Rakeshnag Dasari, O NagaRaju",
+      "venue": "International congress Productivity, Quality, Reliability, Optimization and Modeling (ICPQROM 2011) 1(1), 91-99",
+      "year": 2011,
+      "citations": 0,
+      "type": "conference"
+    },
+    {
+      "title": "A Theoretical Model to Provide Security for Remote Location Aware Cloud Data Centre",
+      "authors": "Mr Rakeshnag Dasari, G Rama Mohan Babu",
+      "venue": "",
+      "year": 0,
+      "citations": 0,
+      "type": "journal"
     }
   ]
 }

@@ -26,7 +26,7 @@ def guess_type(venue: str) -> str:
     v = venue.lower()
     if "patent" in v:
         return "patent"
-    if any(k in v for k in ("conference", "otcon", "symposium", "workshop", "proceedings")):
+    if any(k in v for k in ("conference", "otcon", "symposium", "workshop", "proceedings", "congress")):
         return "conference"
     if any(k in v for k in ("book", "edited volume", "chapter")):
         return "book"
@@ -63,7 +63,9 @@ def fetch_profile(use_proxy: bool = False):
             print(f"  warn: could not fill publication: {exc}")
         bib = pub.get("bib", {})
         title = bib.get("title", "").strip()
-        if not title:
+        # skip empty and malformed records (Scholar sometimes emits
+        # citation fragments whose "title" is an author list)
+        if not title or "⁄" in title:
             continue
         year = bib.get("pub_year")
         venue = (
