@@ -277,33 +277,25 @@ console.log('%cEmail: rakesh.mlops12@gmail.com', 'color: #ec4899; font-size: 14p
 console.log('%cGitHub: https://github.com/drakeshnag-rjo', 'color: #f59e0b; font-size: 14px;');
 
 // ===================================
-// Dynamic Google Scholar Publication Count
+// Dynamic Publication Count
+// Reads data/publications.json — the single source of truth,
+// refreshed from Google Scholar (see .claude/skills/portfolio-updater).
+// A direct browser fetch of scholar.google.com is blocked by CORS.
 // ===================================
 async function updatePublicationCount() {
     const publicationsElement = document.getElementById('publications-count');
-    const scholarUserId = 'bz6-A4oAAAAJ';
 
     try {
-        // Attempt to fetch from Google Scholar
-        // Note: This may be blocked by CORS, so we'll use a fallback
-        const response = await fetch(`https://scholar.google.com/citations?user=${scholarUserId}&hl=en`);
-        const html = await response.text();
+        const response = await fetch('data/publications.json');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
 
-        // Parse the HTML to extract publication count
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-
-        // Google Scholar shows publications in a table
-        const publicationRows = doc.querySelectorAll('#gsc_a_b .gsc_a_t');
-        const count = publicationRows.length;
-
+        const count = data.publications.length;
         if (count > 0) {
-            publicationsElement.textContent = `${count}+`;
-            console.log(`✅ Updated publication count: ${count}+`);
+            publicationsElement.textContent = `${count}`;
         }
     } catch (error) {
-        console.log('ℹ️ Using static publication count (Google Scholar fetch blocked by CORS)');
-        // Keep the static count of 7+ as fallback
+        console.log('ℹ️ Using static publication count (data/publications.json unavailable)');
     }
 }
 

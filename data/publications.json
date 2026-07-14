@@ -1,0 +1,161 @@
+{
+  "scholar_profile": {
+    "name": "Dr. RakeshNag Dasari",
+    "profile_url": "https://scholar.google.com/citations?hl=en&user=bz6-A4oAAAAJ",
+    "affiliation": "Acharya Nagarjuna University",
+    "interests": ["Cloud Security", "Machine Learning", "Deep Learning"],
+    "metrics": {
+      "citations": 607,
+      "citations_since_2021": 601,
+      "h_index": 11,
+      "i10_index": 11
+    },
+    "last_updated": "2026-07-14"
+  },
+  "publications": [
+    {
+      "title": "SRGM with Imperfect-Debugging Using Capability Analysis of Log-Logistic Model",
+      "authors": "R. Dasari, O. NagaRaju, K.V.S. Reddy",
+      "venue": "International Journal of Computers & Technology 2(2), 30-33",
+      "year": 2012,
+      "citations": 117,
+      "type": "journal"
+    },
+    {
+      "title": "An Analysis of Most Effective Virtual Machine Image Encryption Technique for Cloud Security",
+      "authors": "R. Dasari",
+      "venue": "International Journal of Applied Engineering Research 12(24), 15501-15508",
+      "year": 2017,
+      "citations": 106,
+      "type": "journal"
+    },
+    {
+      "title": "Satellite IoT Terminal Authentication Mechanism for Enhancing Consumer Security Over Cyber-Physical Systems",
+      "authors": "J.V.N. Ramesh, D. Nimma, R. Dasari, et al.",
+      "venue": "IEEE Transactions on Consumer Electronics",
+      "year": 2025,
+      "citations": 100,
+      "type": "journal"
+    },
+    {
+      "title": "Security Issues in Cloud Computing",
+      "authors": "R. Dasari, Y. Prasanth, O. NagaRaju",
+      "venue": "International Journal of Latest Trends in Engineering and Technology 7(4)",
+      "year": 2016,
+      "citations": 61,
+      "type": "journal"
+    },
+    {
+      "title": "Safe and Reliable Two-Stage Online Offloading Algorithm for Transportation Cyber-Physical Systems",
+      "authors": "J.V.N. Ramesh, D. Nimma, R. Dasari, et al.",
+      "venue": "IEEE Transactions on Intelligent Transportation Systems 26(9), 14313-14322",
+      "year": 2025,
+      "citations": 55,
+      "type": "journal"
+    },
+    {
+      "title": "Revolutionizing Cloud Security: A Novel Framework for Enhanced Data Protection in Transmission and Migration",
+      "authors": "R. Dasari, G.R.M. Babu",
+      "venue": "Scalable Computing: Practice and Experience 25(6), 4930-4939",
+      "year": 2024,
+      "citations": 45,
+      "type": "journal"
+    },
+    {
+      "title": "Dynamic Weight Allocation–Based Network Security and Anomaly Detection Model for Intelligent VANETs",
+      "authors": "A. Quraishi, R. Dasari, S. Dangiya, et al.",
+      "venue": "Transactions on Emerging Telecommunications Technologies 36(6), e70174",
+      "year": 2025,
+      "citations": 36,
+      "type": "journal"
+    },
+    {
+      "title": "Secure Byzantine Fault Tolerance Mechanisms for Quantum Computing",
+      "authors": "M. Anand, P. Kumar, R. Dasari, et al.",
+      "venue": "4th OPJU International Technology Conference (OTCON) on Smart Computing",
+      "year": 2025,
+      "citations": 30,
+      "type": "conference"
+    },
+    {
+      "title": "An Innovative Structure for Cloud Repository Adopting Binary Access Evidence",
+      "authors": "R.N. Dasari, G.R.M. Babu",
+      "venue": "International Journal of Computer Science and Information Security (IJCSIS)",
+      "year": 2019,
+      "citations": 20,
+      "type": "journal"
+    },
+    {
+      "title": "Integration of Consumer Electronics in Precision Agriculture Using Low-Carbon Wheat Lodging Drone Images",
+      "authors": "R. Dasari, M. Alsadi, D. Nimma, et al.",
+      "venue": "IEEE Transactions on Consumer Electronics",
+      "year": 2025,
+      "citations": 19,
+      "type": "journal"
+    },
+    {
+      "title": "Deep Reinforcement Learning for Autonomous Drone Navigation in Cluttered Environments",
+      "authors": "A. Chandrashekhar, A. Rawate, A. Dhanamathi, R. Dasari, R.P. Shinkar",
+      "venue": "5th International Conference on Recent Trends in Computer Science and IT",
+      "year": 2024,
+      "citations": 4,
+      "type": "conference"
+    },
+    {
+      "title": "Bio-Inspired EEG Signal Computing Using Machine Learning and Fuzzy Theory for Decision Making in Future-Oriented Brain-Controlled Vehicles",
+      "authors": "H. Byeon, A. Quraishi, M.I. Khalaf, et al.",
+      "venue": "SLAS Technology 29(5), 100187",
+      "year": 2024,
+      "citations": 2,
+      "type": "journal"
+    },
+    {
+      "title": "Attention Driven Swin UNet Framework for Accurate Brain Tumor Segmentation Across Multi-Parametric MRI Modalities",
+      "authors": "R. Dasari, M.B. Alazzam, A.H.M. Majid, et al.",
+      "venue": "Sixth International Conference on Advances in Electrical, Computing",
+      "year": 2026,
+      "citations": 0,
+      "type": "conference"
+    },
+    {
+      "title": "Post Quantum Security for Fog Computing IoT Systems Against Eavesdropping Attacks",
+      "authors": "R.V. Pamba, R. Dasari, A. Selvam, et al.",
+      "venue": "Procedia Computer Science 282, 2698-2710",
+      "year": 2026,
+      "citations": 0,
+      "type": "journal"
+    },
+    {
+      "title": "Natural Language Processing in AI",
+      "authors": "R. Dasari, M. Anand, M. Soni, H. Byeon",
+      "venue": "Book / Edited Volume",
+      "year": 2025,
+      "citations": 0,
+      "type": "book"
+    },
+    {
+      "title": "A Predicting Cloudburst Events Using Machine Learning System",
+      "authors": "R.S. Modake, R. Dasari, R. Laudya, et al.",
+      "venue": "IN Patent App. 202441087983",
+      "year": 2024,
+      "citations": 0,
+      "type": "patent"
+    },
+    {
+      "title": "A Machine and Deep Learning Based Air Quality and Pollution Forecasting System",
+      "authors": "D.K. Sharma, I. Kesta, R. Dasari, et al.",
+      "venue": "IN Patent App. 202421059225",
+      "year": 2024,
+      "citations": 0,
+      "type": "patent"
+    },
+    {
+      "title": "IoT Security and Privacy Enhancement with Machine and Deep Learning",
+      "authors": "D.K. Sharma, I. Kesta, R. Dasari, et al.",
+      "venue": "IN Patent App. 202321081998",
+      "year": 2023,
+      "citations": 0,
+      "type": "patent"
+    }
+  ]
+}

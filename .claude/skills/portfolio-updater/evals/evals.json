@@ -1,0 +1,23 @@
+{
+  "skill_name": "portfolio-updater",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My new paper just got indexed on Google Scholar and my citation count went up. Can you sync my portfolio's research page with my Scholar profile?",
+      "expected_output": "data/publications.json updated with fresh metrics, last_updated set to today, new publication appended with correct type; index.html teaser numbers kept consistent; research.html verified locally.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I just passed the HashiCorp Terraform Associate certification (2026). Add it to my portfolio.",
+      "expected_output": "A new education-card added at the top of the certifications grid in index.html using the existing markup pattern and an appropriate devicon/FontAwesome icon, without breaking layout.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Add a projects page to my portfolio site with a couple of my GitHub projects.",
+      "expected_output": "A new projects.html cloned from research.html's shell (head, navbar, footer, cookie assets), styled with existing design tokens, nav links updated across pages, and script.js NOT included on the subpage.",
+      "files": []
+    }
+  ]
+}

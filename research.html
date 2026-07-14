@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Research and publications by Dr. Rakeshnag Dasari — 600+ citations across cloud security, machine learning, and cyber-physical systems. h-index 11.">
+    <meta name="keywords"
+        content="Rakeshnag Dasari, Research, Publications, Cloud Security, Machine Learning, Deep Learning, IEEE, Google Scholar">
+    <meta name="author" content="Dr. Rakeshnag Dasari">
+    <title>Research & Publications | Dr. Rakeshnag Dasari</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="research.css">
+    <link rel="stylesheet" href="gdpr-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Dr. Rakeshnag Dasari</a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#expertise" class="nav-link">Expertise</a></li>
+                <li><a href="index.html#skills" class="nav-link">Skills</a></li>
+                <li><a href="index.html#experience" class="nav-link">Experience</a></li>
+                <li><a href="research.html" class="nav-link active">Research</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Research Hero -->
+    <header class="research-hero">
+        <div class="hero-background">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Academic Contributions</span>
+                <h1 class="section-title">Research & Publications</h1>
+                <p class="research-hero-sub">
+                    Peer-reviewed research spanning cloud security, machine learning, and
+                    cyber-physical systems — published in IEEE Transactions, international
+                    journals, and filed patents.
+                </p>
+            </div>
+
+            <!-- Scholar Metrics -->
+            <div class="metrics-grid" id="metrics-grid" aria-label="Google Scholar citation metrics">
+                <div class="metric-card">
+                    <h3 id="metric-citations">—</h3>
+                    <p>Citations</p>
+                </div>
+                <div class="metric-card">
+                    <h3 id="metric-hindex">—</h3>
+                    <p>h-index</p>
+                </div>
+                <div class="metric-card">
+                    <h3 id="metric-i10">—</h3>
+                    <p>i10-index</p>
+                </div>
+                <div class="metric-card">
+                    <h3 id="metric-pubcount">—</h3>
+                    <p>Publications</p>
+                </div>
+            </div>
+            <p class="metrics-source">
+                Source: <a href="https://scholar.google.com/citations?hl=en&user=bz6-A4oAAAAJ" target="_blank"
+                    rel="noopener">Google Scholar</a> · <span id="metrics-updated"></span>
+            </p>
+        </div>
+    </header>
+
+    <!-- Publications -->
+    <main class="research-page">
+        <section class="publications">
+            <div class="container">
+                <!-- Filters -->
+                <div class="pub-toolbar">
+                    <div class="pub-filters" id="pub-filters" role="group" aria-label="Filter publications by type">
+                        <button class="filter-chip active" data-filter="all">All</button>
+                        <button class="filter-chip" data-filter="journal">Journal Articles</button>
+                        <button class="filter-chip" data-filter="conference">Conference Papers</button>
+                        <button class="filter-chip" data-filter="patent">Patents</button>
+                        <button class="filter-chip" data-filter="book">Books</button>
+                    </div>
+                    <div class="pub-sort">
+                        <label for="pub-sort-select">Sort by</label>
+                        <select id="pub-sort-select">
+                            <option value="citations">Most cited</option>
+                            <option value="year">Newest first</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="publications-list" id="publications-list">
+                    <!-- Rendered from data/publications.json by research.js -->
+                    <noscript>
+                        <p>Enable JavaScript to view the publication list, or visit my
+                            <a href="https://scholar.google.com/citations?hl=en&user=bz6-A4oAAAAJ">Google Scholar
+                                profile</a>.
+                        </p>
+                    </noscript>
+                </div>
+
+                <div class="scholar-link">
+                    <a href="https://scholar.google.com/citations?hl=en&user=bz6-A4oAAAAJ" target="_blank"
+                        rel="noopener" class="btn btn-primary scholar-btn">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                            <path
+                                d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z" />
+                        </svg>
+                        View Full Profile on Google Scholar →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Interests -->
+        <section class="research-interests">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Focus Areas</span>
+                    <h2 class="section-title">Research Interests</h2>
+                </div>
+                <div class="interest-grid">
+                    <div class="interest-card">
+                        <div class="expertise-icon"><i class="fas fa-shield-halved"></i></div>
+                        <h3>Cloud Security</h3>
+                        <p>VM image encryption, secure data transmission & migration frameworks, and
+                            binary access evidence for cloud repositories.</p>
+                    </div>
+                    <div class="interest-card">
+                        <div class="expertise-icon"><i class="fas fa-brain"></i></div>
+                        <h3>Machine Learning</h3>
+                        <p>Anomaly detection for intelligent VANETs, reinforcement learning for autonomous
+                            navigation, and ML-driven forecasting systems.</p>
+                    </div>
+                    <div class="interest-card">
+                        <div class="expertise-icon"><i class="fas fa-network-wired"></i></div>
+                        <h3>Cyber-Physical Systems & IoT</h3>
+                        <p>Satellite IoT authentication, post-quantum security for fog computing, and
+                            secure offloading for transportation systems.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Cookie Settings Button -->
+    <button id="floatingCookieBtn" class="floating-cookie-btn" onclick="openCookieSettings()"
+        title="Manage Cookie Preferences">
+        🍪
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Dr. Rakeshnag Dasari. All rights reserved.</p>
+            <p class="footer-tagline">Building the future of cloud infrastructure, one pipeline at a time.</p>
+            <div class="footer-links">
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="cookie-policy.html">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="cosmic-background.js"></script>
+    <script src="cookie-consent.js"></script>
+    <script src="research.js"></script>
+</body>
+
+</html>
