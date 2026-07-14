@@ -10,7 +10,7 @@ Modern, premium portfolio website showcasing expertise in DevSecOps, MLOps, Clou
 
 ## 👨‍💻 Professional Summary
 
-Sr. DevSecOps / MLOps Engineer with 13+ years of experience specializing in:
+Sr. DevSecOps / MLOps Engineer with 14+ years of experience specializing in:
 - MLOps & AI/ML Engineering (AWS SageMaker, Azure AI Studio, Vertex AI)
 - DevSecOps & Cloud Security (SAST, DAST, IAST, OWASP)
 - Multi-cloud Architecture (AWS, Azure, GCP)

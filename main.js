@@ -174,6 +174,8 @@ if (roleElement) {
     const roles = [
         'Sr. DevSecOps Engineer',
         'MLOps Engineer',
+        'AIOps Architect',
+        'Forward Deployed Engineer',
         'Cloud Solutions Architect',
         'AI/ML Engineer',
         'Security Engineer',
