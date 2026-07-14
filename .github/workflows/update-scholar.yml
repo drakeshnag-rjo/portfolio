@@ -20,7 +20,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install scholarly
-        run: pip install --quiet "scholarly[proxies]" free-proxy
+        run: pip install --quiet scholarly free-proxy "httpx<0.28"
 
       - name: Refresh data/publications.json
         run: python scripts/update_scholar.py
