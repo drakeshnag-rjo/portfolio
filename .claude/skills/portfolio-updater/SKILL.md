@@ -114,6 +114,15 @@ the user provides numbers, and end each detailed entry with a
   cookie button, `main.js` include). Mark the current page's nav link
   `active`. Do NOT include `scene.js` outside index.html.
 
+## Cache busting
+
+CSS/JS links carry a version query (`style.css?v=3`). GitHub Pages
+caches assets for 10 minutes, so shipping new HTML that depends on new
+CSS/JS without bumping the version leaves returning visitors with a
+broken mix (fresh markup + stale styles). Whenever you edit any
+CSS or JS file, bump the `?v=` number on its links in ALL four HTML
+pages in the same commit.
+
 ## Deploying
 
 GitHub Pages serves `main` directly — a push is a deploy. Before pushing:
