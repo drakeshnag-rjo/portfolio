@@ -1272,9 +1272,43 @@ section[id] {
 }
 
 /* the address itself is the primary contact action — visible, copyable */
+.contact-email-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 1.8rem;
+}
+
+.copy-email {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-2);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast),
+        background var(--transition-fast), transform var(--transition-fast);
+}
+
+.copy-email:hover {
+    border-color: var(--border-hot);
+    color: var(--text);
+    transform: translateY(-2px);
+}
+
+.copy-email.copied {
+    border-color: var(--teal);
+    background: rgba(45, 212, 191, 0.15);
+    color: var(--teal);
+}
+
 .contact-email {
     display: inline-block;
-    margin-top: 1.8rem;
     font-family: var(--font-mono);
     font-size: clamp(1.05rem, 2.6vw, 1.5rem);
     color: var(--text);

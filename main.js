@@ -243,6 +243,35 @@ document.addEventListener('click', e => {
     if (svg) svg.style.transform = expanded ? 'rotate(180deg)' : '';
 });
 
+// --- Copy email ---
+const copyBtn = document.querySelector('.copy-email');
+if (copyBtn) {
+    let resetTimer;
+    copyBtn.addEventListener('click', async () => {
+        const email = copyBtn.dataset.email;
+        try {
+            await navigator.clipboard.writeText(email);
+        } catch {
+            // clipboard API unavailable (http / old browser) — fallback
+            const tmp = document.createElement('textarea');
+            tmp.value = email;
+            document.body.appendChild(tmp);
+            tmp.select();
+            document.execCommand('copy');
+            tmp.remove();
+        }
+        copyBtn.classList.add('copied');
+        copyBtn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i>';
+        copyBtn.setAttribute('aria-label', 'Email address copied');
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => {
+            copyBtn.classList.remove('copied');
+            copyBtn.innerHTML = '<i class="far fa-copy" aria-hidden="true"></i>';
+            copyBtn.setAttribute('aria-label', 'Copy email address');
+        }, 2000);
+    });
+}
+
 // --- Back to top ---
 const toTop = document.createElement('button');
 toTop.className = 'to-top';
