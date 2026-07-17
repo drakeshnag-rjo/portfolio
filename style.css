@@ -337,6 +337,19 @@ h1, h2, h3, h4 {
     background: var(--grad);
     color: #04110f;
     box-shadow: var(--shadow-glow);
+    animation: breathe 3.5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+
+    0%,
+    100% {
+        box-shadow: 0 0 32px rgba(45, 212, 191, 0.18);
+    }
+
+    50% {
+        box-shadow: 0 0 56px rgba(45, 212, 191, 0.38);
+    }
 }
 
 .btn-primary:hover {
@@ -393,6 +406,89 @@ h1, h2, h3, h4 {
     padding-top: 4rem;
 }
 
+/* Staggered entrance — the first three seconds sell the brand */
+@keyframes rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(26px);
+        filter: blur(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+        filter: none;
+    }
+}
+
+.hero-content>* {
+    animation: rise-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.hero-content>*:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.hero-content>*:nth-child(2) {
+    animation-delay: 0.25s;
+}
+
+.hero-content>*:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.hero-content>*:nth-child(4) {
+    animation-delay: 0.55s;
+}
+
+.hero-content>*:nth-child(5) {
+    animation-delay: 0.7s;
+}
+
+.hero-content>*:nth-child(6) {
+    animation-delay: 0.85s;
+}
+
+.hero-content>*:nth-child(7) {
+    animation-delay: 1s;
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.45rem 1.1rem;
+    margin-bottom: 1.2rem;
+    border-radius: 999px;
+    border: 1px solid rgba(45, 212, 191, 0.35);
+    background: rgba(45, 212, 191, 0.08);
+    color: var(--text-2);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-ring {
+    0% {
+        box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.55);
+    }
+
+    70% {
+        box-shadow: 0 0 0 9px rgba(45, 212, 191, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(45, 212, 191, 0);
+    }
+}
+
 .hero-eyebrow {
     font-family: var(--font-mono);
     color: var(--teal);
@@ -404,6 +500,22 @@ h1, h2, h3, h4 {
     font-size: clamp(2.6rem, 7vw, 5.2rem);
     font-weight: 700;
     max-width: 14ch;
+    /* living gradient — slow shimmer across the name */
+    background-size: 200% auto;
+    animation: rise-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.25s backwards,
+        shimmer 7s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
 }
 
 .hero-role {
@@ -530,6 +642,54 @@ h1, h2, h3, h4 {
     100% {
         transform: scaleY(0);
         transform-origin: bottom;
+    }
+}
+
+/* ---------- Brand marquee ---------- */
+.marquee {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: rgba(12, 15, 24, 0.5);
+    padding: 0.9rem 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 2.2rem;
+    width: max-content;
+    animation: marquee 36s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+.marquee-track span {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    white-space: nowrap;
+}
+
+.marquee-track i {
+    color: var(--teal);
+    font-style: normal;
+    font-size: 0.6rem;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
     }
 }
 
@@ -776,6 +936,11 @@ h1, h2, h3, h4 {
     background: var(--bg);
     border: 2px solid var(--teal);
     box-shadow: 0 0 12px rgba(45, 212, 191, 0.6);
+}
+
+/* current position gets a live pulse */
+.timeline-item:first-child .timeline-dot {
+    animation: pulse-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .timeline-content {
@@ -1244,6 +1409,7 @@ body::after {
     *::before,
     *::after {
         animation-duration: 0.001s !important;
+        animation-delay: 0s !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.001s !important;
     }
