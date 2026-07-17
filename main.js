@@ -20,12 +20,14 @@ if (navbar) {
 if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
+        const open = navMenu.classList.toggle('active');
+        document.body.classList.toggle('menu-open', open);
     });
     navMenu.querySelectorAll('.nav-link').forEach(link =>
         link.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
+            document.body.classList.remove('menu-open');
         })
     );
 }
