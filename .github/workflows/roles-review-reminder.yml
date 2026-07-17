@@ -1,0 +1,39 @@
+name: Monthly roles review reminder
+
+# LinkedIn cannot be read by automation (login wall, ToS), so instead
+# of silently drifting out of date, open a short reminder issue on the
+# 1st of each month. Updating is then a one-line request to Claude
+# (e.g. "add Platform Engineer to my portfolio roles").
+
+on:
+  schedule:
+    - cron: "41 7 1 * *"
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open reminder issue (skip if one is already open)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          existing=$(gh issue list -R "$GITHUB_REPOSITORY" --state open \
+            --search "Monthly roles review in:title" --json number --jq length)
+          if [ "$existing" -gt 0 ]; then
+            echo "Reminder already open."
+            exit 0
+          fi
+          gh issue create -R "$GITHUB_REPOSITORY" \
+            --title "Monthly roles review — $(date +%B\ %Y)" \
+            --body "Quick check: did your roles, titles, or certifications change on LinkedIn this month?
+
+If yes, tell Claude in any session, e.g.:
+- \"add <role> to my portfolio roles\"
+- \"add my new <cert> certification\"
+- \"sync my scholar profile\"
+
+The portfolio-updater skill applies the change everywhere it belongs (hero rotation, About, expertise cards, SEO metadata). If nothing changed, just close this issue."

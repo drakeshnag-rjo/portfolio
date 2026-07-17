@@ -114,6 +114,20 @@ the user provides numbers, and end each detailed entry with a
   cookie button, `main.js` include). Mark the current page's nav link
   `active`. Do NOT include `scene.js` outside index.html.
 
+## Other automations
+
+- `.github/workflows/update-experience.yml` recomputes years of
+  experience every August 1 via `scripts/update_experience.py`
+  (career start anchored at Aug 2011 — idempotent, never edit the
+  years by hand; change CAREER_START_* in the script if the anchor
+  is ever wrong).
+- `.github/workflows/roles-review-reminder.yml` opens a monthly
+  GitHub issue prompting a roles/certs review — LinkedIn cannot be
+  scraped by automation, so role changes always arrive as user
+  requests. When one does, update the hero rotation in `main.js`,
+  About, the MLOps expertise card, keywords meta, and JSON-LD
+  knowsAbout together.
+
 ## Cache busting
 
 CSS/JS links carry a version query (`style.css?v=3`). GitHub Pages
