@@ -176,6 +176,7 @@ if (roleElement) {
         'MLOps Engineer',
         'AIOps Architect',
         'Forward Deployed Engineer',
+        'Agentic AI Specialist',
         'Cloud Solutions Architect',
         'AI/ML Engineer',
         'Security Engineer',
