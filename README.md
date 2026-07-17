@@ -157,7 +157,7 @@ View complete research profile on [Google Scholar](https://scholar.google.com/ci
 - **GitHub Pages:** [https://drakeshnag-rjo.github.io/portfolio/](https://drakeshnag-rjo.github.io/portfolio/)
 - **Google Scholar:** [View Profile](https://scholar.google.com/citations?user=bz6-A4oAAAAJ&hl=en&authuser=2)
 - **GitHub:** [drakeshnag-rjo](https://github.com/drakeshnag-rjo)
-- **Email:** rakesh.mlops12@gmail.com
+- **Email:** rakesh.mlops13@gmail.com
 - **Privacy Policy:** [View Policy](https://drrakeshnagdasari.is-a.dev/privacy-policy.html)
 - **Cookie Policy:** [View Policy](https://drrakeshnagdasari.is-a.dev/cookie-policy.html)
 
