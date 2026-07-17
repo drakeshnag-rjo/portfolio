@@ -27,13 +27,16 @@ jobs:
             echo "Reminder already open."
             exit 0
           fi
+          cat > /tmp/body.md << 'BODY'
+          Quick check: did your roles, titles, or certifications change on LinkedIn this month?
+
+          If yes, tell Claude in any session, e.g.:
+          - "add <role> to my portfolio roles"
+          - "add my new <cert> certification"
+          - "sync my scholar profile"
+
+          The portfolio-updater skill applies the change everywhere it belongs (hero rotation, About, expertise cards, SEO metadata). If nothing changed, just close this issue.
+          BODY
           gh issue create -R "$GITHUB_REPOSITORY" \
             --title "Monthly roles review — $(date +%B\ %Y)" \
-            --body "Quick check: did your roles, titles, or certifications change on LinkedIn this month?
-
-If yes, tell Claude in any session, e.g.:
-- \"add <role> to my portfolio roles\"
-- \"add my new <cert> certification\"
-- \"sync my scholar profile\"
-
-The portfolio-updater skill applies the change everywhere it belongs (hero rotation, About, expertise cards, SEO metadata). If nothing changed, just close this issue."
+            --body-file /tmp/body.md
