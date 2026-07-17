@@ -133,7 +133,7 @@ if (!reducedMotion && finePointer) {
 // --- Count-up numbers (runs when an element becomes visible) ---
 function countUp(el, duration = 1100) {
     const raw = el.textContent.trim();
-    const match = raw.match(/^(\d[\d,]*)(\+?)$/);
+    const match = raw.match(/^(\d[\d,]*)([+%]?)$/);
     if (!match) return; // non-numeric stats (e.g. "Ph.D.") stay as-is
     const target = parseInt(match[1].replace(/,/g, ''), 10);
     const suffix = match[2];
@@ -240,6 +240,18 @@ document.addEventListener('click', e => {
     const svg = button.querySelector('svg');
     if (svg) svg.style.transform = expanded ? 'rotate(180deg)' : '';
 });
+
+// --- Back to top ---
+const toTop = document.createElement('button');
+toTop.className = 'to-top';
+toTop.setAttribute('aria-label', 'Back to top');
+toTop.innerHTML = '↑';
+document.body.appendChild(toTop);
+toTop.addEventListener('click', () =>
+    window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' }));
+window.addEventListener('scroll', () => {
+    toTop.classList.toggle('show', window.scrollY > 600);
+}, { passive: true });
 
 // --- Footer year ---
 const yearEl = document.getElementById('year');
