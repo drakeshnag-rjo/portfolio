@@ -9,12 +9,12 @@
       "Deep Learning"
     ],
     "metrics": {
-      "citations": 607,
-      "citations_since_2021": 601,
-      "h_index": 11,
-      "i10_index": 11
+      "citations": 608,
+      "citations_since_2021": 602,
+      "h_index": 10,
+      "i10_index": 10
     },
-    "last_updated": "2026-07-14"
+    "last_updated": "2026-07-20"
   },
   "publications": [
     {
@@ -38,7 +38,15 @@
       "authors": "J.V.N. Ramesh, D. Nimma, R. Dasari, et al.",
       "venue": "IEEE Transactions on Consumer Electronics",
       "year": 2025,
-      "citations": 100,
+      "citations": 101,
+      "type": "journal"
+    },
+    {
+      "title": "Safe and Reliable Two-Stage Online Offloading Algorithm for Transportation Cyber-Physical Systems",
+      "authors": "J.V.N. Ramesh, D. Nimma, R. Dasari, et al.",
+      "venue": "IEEE Transactions on Intelligent Transportation Systems 26(9), 14313-14322",
+      "year": 2025,
+      "citations": 67,
       "type": "journal"
     },
     {
@@ -47,14 +55,6 @@
       "venue": "International Journal of Latest Trends in Engineering and Technology 7(4)",
       "year": 2016,
       "citations": 61,
-      "type": "journal"
-    },
-    {
-      "title": "Safe and Reliable Two-Stage Online Offloading Algorithm for Transportation Cyber-Physical Systems",
-      "authors": "J.V.N. Ramesh, D. Nimma, R. Dasari, et al.",
-      "venue": "IEEE Transactions on Intelligent Transportation Systems 26(9), 14313-14322",
-      "year": 2025,
-      "citations": 55,
       "type": "journal"
     },
     {
@@ -160,6 +160,22 @@
       "year": 2023,
       "citations": 0,
       "type": "patent"
+    },
+    {
+      "title": "An Investigation of Best Virtual Machine Picture Encryption Procedure for Cloud Security",
+      "authors": "Dasari Rakeshnag, Dr. G Rama Mohan Babu",
+      "venue": "International Journal of Advanced Science and Technology 29(03), 5917 - 5925",
+      "year": 2020,
+      "citations": 0,
+      "type": "journal"
+    },
+    {
+      "title": "A Creative Composition for Cloud Archive Using the Evidence for Binary Approach",
+      "authors": "Dasari Rakeshnag, Dr. G Rama Mohan Babu",
+      "venue": "International Journal of Advanced Science and Technology 29(08), 6324 - 6334",
+      "year": 2020,
+      "citations": 0,
+      "type": "journal"
     },
     {
       "title": "A Multiuse Framework for Cloud Based Security on Network in Data Centre",
